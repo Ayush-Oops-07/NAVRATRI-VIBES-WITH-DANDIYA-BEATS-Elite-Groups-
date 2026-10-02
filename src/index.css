@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+body { margin: 0; background: #0a0305; color: #fbe9cf; font-family: Poppins, sans-serif; overflow-x: hidden; }
+@layer components {
+  .gold-text { background: linear-gradient(180deg, #fff3c4 0%, #f5c04a 45%, #c8791a 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .glass { background: linear-gradient(145deg, rgba(255,255,255,.10), rgba(255,255,255,.02)); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid rgba(245,192,74,.28); box-shadow: 0 10px 40px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.12); }
+  .crimson-bg { background: radial-gradient(ellipse at 50% 0%, #8f1224 0%, #4a0710 45%, #1a0306 100%); }
+  .section { position: relative; padding: 5rem 1.25rem; overflow: hidden; }
+  @media (min-width: 768px) { .section { padding: 7rem 2rem; } }
+}
+@keyframes floatUp { 0% { transform: translateY(0) scale(.6); opacity: 0; } 15% { opacity: .9; } 100% { transform: translateY(-110vh) scale(1.1); opacity: 0; } }
+@keyframes flicker { 0%,100% { transform: scale(1) rotate(-2deg); opacity: 1; } 50% { transform: scale(1.12) rotate(2deg); opacity: .8; } }
+@keyframes spinSlow { to { transform: rotate(360deg); } }
+.particle { position: absolute; bottom: -10px; border-radius: 9999px; background: radial-gradient(circle, #ffe9a0, #f5c04a 50%, transparent 70%); animation: floatUp linear infinite; pointer-events: none; }
+.spin-slow { animation: spinSlow 120s linear infinite; }
+.flame { animation: flicker 2.2s ease-in-out infinite; transform-origin: 50% 100%; }
+:focus-visible { outline: 2px solid #f5c04a; outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .particle, .spin-slow, .flame { animation: none; } html { scroll-behavior: auto; } }
