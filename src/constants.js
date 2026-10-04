@@ -8,5 +8,10 @@ export const MAP_LINK = `https://www.google.com/maps/search/?api=1&query=${encod
 export const INSTAGRAM = 'https://www.instagram.com/dandiya_beatss/'
 export const PHONE_DISPLAY = '+91 76316 90500'
 export const AKAAI_STUDIO_LINK = 'https://www.akaaistudio.in/'
-export const ARYAN_KELWAR_LINK = 'https://www.instagram.com/aryann.1__/'
+export const ARYAN_KALWAR_LINK = 'https://www.instagram.com/aryann.1__/'
 
+// Event Production & Creative Partners Links
+export const HIRA_JACK_INSTAGRAM = 'https://www.instagram.com/hira_jack_photography/?hl=en'
+export const HIRA_JACK_WEBSITE = 'https://hirajackphotography.com/'
+export const SHIVANI_SOUND_LINK = 'https://www.instagram.com/dandiya_beatss/' // Example link, update as needed
+export const SHADIS_DOT_COM_LINK = 'https://www.instagram.com/dandiya_beatss/' // Example link, update as needed

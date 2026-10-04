@@ -1,4 +1,4 @@
-import { INSTAGRAM, MAP_LINK, BOOK_LINK, AKAAI_STUDIO_LINK, ARYAN_KELWAR_LINK } from '../constants'
+import { INSTAGRAM, MAP_LINK, BOOK_LINK, AKAAI_STUDIO_LINK, ARYAN_KALWAR_LINK } from '../constants'
 import { Diya } from './ui'
 
 export default function Footer() {
@@ -27,12 +27,11 @@ export default function Footer() {
         <p>© 2026 Elite Groups. All Rights Reserved.</p>
         <p className="flex items-center gap-1.5 flex-wrap justify-center">
           <span>Developed by</span>
-          <a href={AKAAI_STUDIO_LINK} target="_blank" rel="noopener noreferrer" className="text-gold font-semibold hover:underline">Akaai Studio</a>
+          <a href={AKAAI_STUDIO_LINK} target="_blank" rel="noopener noreferrer" className="text-gold font-semibold hover:underline">AKA AI Studio</a>
           <span>&</span>
-          <a href={ARYAN_KELWAR_LINK} target="_blank" rel="noopener noreferrer" className="text-gold font-semibold hover:underline">Aryan Kelwar</a>
+          <a href={ARYAN_KALWAR_LINK} target="_blank" rel="noopener noreferrer" className="text-gold font-semibold hover:underline">Aryan Kalwar</a>
         </p>
       </div>
     </footer>
   )
 }
-
