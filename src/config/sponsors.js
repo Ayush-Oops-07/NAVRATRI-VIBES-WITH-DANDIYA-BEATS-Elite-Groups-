@@ -5,7 +5,7 @@
  * WhatsApp enquiry number, and animation duration below.
  */
 
-const PHONE = '917631690500'
+const PHONE = '917295049990'
 const createEnquiryLink = (slot) =>
   `https://wa.me/${PHONE}?text=${encodeURIComponent(
     `Hi, I want to book the "${slot}" sponsorship slot for Navratri Vibes 2026. Please share details & packages.`
