@@ -1,9 +1,12 @@
 import { motion } from 'framer-motion'
-import { MessageCircle } from 'lucide-react'
+import { MessageCircle, Ticket } from 'lucide-react'
 import { Btn, Mandala, Particles, Reveal } from './ui'
-import { BOOK_LINK, ENQUIRE_LINK, PHONE_DISPLAY } from '../constants'
+import { ENQUIRE_LINK, PHONE_DISPLAY } from '../constants'
+import { useBooking } from '../context/BookingContext'
 
 export default function Booking() {
+  const { openBooking } = useBooking()
+
   return (
     <section id="enquiry" className="section bg-gradient-to-b from-ink via-crimson to-wine">
       <Particles count={20} />
@@ -13,7 +16,7 @@ export default function Booking() {
           <h2 className="font-display font-black gold-text text-3xl sm:text-5xl leading-tight">Ready to Feel the Beats?</h2>
           <p className="font-serif text-amber-100 text-lg mt-4">Your Navratri night starts here.</p>
           <motion.div className="mt-9" animate={{ scale: [1, 1.03, 1] }} transition={{ duration: 2.5, repeat: Infinity }}>
-            <Btn href={BOOK_LINK} icon={MessageCircle} className="w-full sm:w-auto text-base sm:text-lg !py-4 sm:!px-10">BOOK YOUR PASS ON WHATSAPP</Btn>
+            <Btn onClick={openBooking} icon={Ticket} className="w-full sm:w-auto text-base sm:text-lg !py-4 sm:!px-10 cursor-pointer">BOOK YOUR PASS</Btn>
           </motion.div>
           <div className="mt-10 pt-8 border-t border-gold/25">
             <p className="text-amber-100/80">Have a question?</p>

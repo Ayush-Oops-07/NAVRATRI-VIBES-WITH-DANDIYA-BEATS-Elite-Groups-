@@ -13,10 +13,12 @@ import Instagram from './components/Instagram'
 import Footer from './components/Footer'
 import WhatsAppButton from './components/WhatsAppButton'
 import SponsorIntro from './components/SponsorIntro'
+import BookingModal from './components/BookingModal'
+import { BookingProvider } from './context/BookingContext'
 
 export default function App() {
   return (
-    <>
+    <BookingProvider>
       <SponsorIntro />
       <Navbar />
       <main>
@@ -34,6 +36,7 @@ export default function App() {
       </main>
       <Footer />
       <WhatsAppButton />
-    </>
+      <BookingModal />
+    </BookingProvider>
   )
 }

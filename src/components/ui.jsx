@@ -47,15 +47,39 @@ export const Diya = ({ className = '' }) => (
   </svg>
 )
 
-export const Btn = ({ href, children, variant = 'gold', className = '', icon: Icon }) => {
-  const ext = href.startsWith('http')
+export const Btn = ({ href, onClick, children, variant = 'gold', className = '', icon: Icon, type = 'button', disabled = false, ...props }) => {
   const styles = variant === 'gold'
     ? 'bg-gradient-to-b from-[#ffe08a] via-gold to-[#c8791a] text-wine shadow-[0_0_30px_rgba(245,192,74,.45)]'
     : 'glass text-gold hover:bg-white/10'
+
+  if (href) {
+    const ext = href.startsWith('http')
+    return (
+      <motion.a
+        href={href}
+        {...(ext ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+        whileHover={{ scale: 1.04, y: -2 }}
+        whileTap={{ scale: 0.97 }}
+        onClick={onClick}
+        className={`inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 font-serif font-bold tracking-wide text-sm sm:text-base ${styles} ${className}`}
+        {...props}
+      >
+        {Icon && <Icon size={18} aria-hidden="true" />}{children}
+      </motion.a>
+    )
+  }
+
   return (
-    <motion.a href={href} {...(ext ? { target: '_blank', rel: 'noopener noreferrer' } : {})} whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}
-      className={`inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 font-serif font-bold tracking-wide text-sm sm:text-base ${styles} ${className}`}>
+    <motion.button
+      type={type}
+      disabled={disabled}
+      onClick={onClick}
+      whileHover={{ scale: disabled ? 1 : 1.04, y: disabled ? 0 : -2 }}
+      whileTap={{ scale: disabled ? 1 : 0.97 }}
+      className={`inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 font-serif font-bold tracking-wide text-sm sm:text-base ${styles} ${className}`}
+      {...props}
+    >
       {Icon && <Icon size={18} aria-hidden="true" />}{children}
-    </motion.a>
+    </motion.button>
   )
 }

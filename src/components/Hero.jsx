@@ -1,7 +1,8 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { CalendarDays, Clock, MapPin, ChevronDown, MessageCircle, Ticket } from 'lucide-react'
 import { Btn, Mandala, Particles, Diya } from './ui'
-import { BOOK_LINK, ENQUIRE_LINK, ADDRESS, MAP_LINK } from '../constants'
+import { ENQUIRE_LINK, ADDRESS, MAP_LINK } from '../constants'
+import { useBooking } from '../context/BookingContext'
 
 export const DurgaEyes = ({ className = '' }) => (
   <svg viewBox="0 0 220 90" className={className} role="img" aria-label="Maa Durga eyes motif">
@@ -23,6 +24,7 @@ const Stick = ({ rot, delay }) => (
 )
 
 export default function Hero() {
+  const { openBooking } = useBooking()
   const { scrollY } = useScroll()
   const yMandala = useTransform(scrollY, [0, 600], [0, 120])
   const chips = [
@@ -71,7 +73,7 @@ export default function Hero() {
           {chips.map(([I, t]) => <li key={t} className="glass rounded-full px-4 py-2 flex items-center gap-2 text-xs sm:text-sm font-medium"><I size={16} className="text-gold" aria-hidden="true" />{t}</li>)}
         </motion.ul>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.9 }} className="mt-9 flex flex-col sm:flex-row gap-4 justify-center items-stretch sm:items-center max-w-sm sm:max-w-none mx-auto">
-          <Btn href={BOOK_LINK} icon={Ticket}>BOOK YOUR PASS</Btn>
+          <Btn onClick={openBooking} icon={Ticket}>BOOK YOUR PASS</Btn>
           <Btn href={ENQUIRE_LINK} variant="glass" icon={MessageCircle}>ENQUIRE ON WHATSAPP</Btn>
         </motion.div>
       </div>
