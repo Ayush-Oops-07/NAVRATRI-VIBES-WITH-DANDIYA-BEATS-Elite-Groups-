@@ -1,71 +1,203 @@
 import { Reveal } from './ui'
 import { ARYAN_KALWAR_LINK } from '../constants'
 
+// Core Organising Committee (Top Row: Ujjawal Jaiswal -> Aryan Kalwar -> Shreshth Jaiswal)
+const organisers = [
+  {
+    name: 'Ujjawal Jaiswal',
+    role: 'Organiser',
+    link: '',
+    photo: '',
+  },
+  {
+    name: 'Aryan Kalwar',
+    role: 'Key Organiser',
+    link: ARYAN_KALWAR_LINK,
+    photo: '/team_members/Aryan_kalwar.png',
+  },
+  {
+    name: 'Shreshth Jaiswal',
+    role: 'Organiser',
+    link: '',
+    photo: '',
+  },
+]
+
+// Valued Partners & Well-Wishers (Bottom Section: Equal Spacing)
 const partners = [
-  ['Aryan Kalwar', 'Key Organiser', ARYAN_KALWAR_LINK, '/team_members/Aryan_kalwar.png'],
-  ['Shree Kalash', 'Family Wear Showroom, Main Road Motihari', '', ''],
-  ['New Ashoka Dresses', "Men's, Kids & Ladies Wear, Main Road", '', ''],
-  ['Neha Hosiery', 'Neha Apparels, Main Road Motihari', '', ''],
-  ['Pramod Medical', 'Branded Healthcare Products', '', ''],
-  ['Ujjawal Jaiswal', 'Organiser', '', ''],
-  ['Shreshth Jaiswal', 'Organiser', '', ''],
+  {
+    name: 'Shree Kalash',
+    desc: 'Family Wear Showroom, Main Road Motihari',
+    link: '',
+    photo: '',
+  },
+  {
+    name: 'New Ashoka Dresses',
+    desc: "Men's, Kids & Ladies Wear, Main Road",
+    link: '',
+    photo: '',
+  },
+  {
+    name: 'Neha Hosiery',
+    desc: 'Neha Apparels, Main Road Motihari',
+    link: '',
+    photo: '',
+  },
+  {
+    name: 'Pramod Medical',
+    desc: 'Branded Healthcare Products',
+    link: '',
+    photo: '',
+  },
 ]
 
 export default function Organisers() {
   return (
-    <section className="section bg-ink">
-      <div className="max-w-6xl mx-auto">
+    <section className="section bg-ink relative overflow-hidden">
+      {/* Ambient background glow */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-30"
+        style={{
+          background:
+            'radial-gradient(ellipse 70% 50% at 50% 30%, rgba(245,192,74,0.12) 0%, transparent 70%)',
+        }}
+        aria-hidden="true"
+      />
+
+      <div className="max-w-6xl mx-auto relative z-10">
+        {/* Main Section Header */}
         <Reveal className="text-center">
-          <p className="font-serif text-gold/80 tracking-[0.3em] text-sm">PRESENTED BY</p>
-          <h2 className="font-display font-black gold-text text-4xl md:text-6xl mt-3">ELITE GROUPS</h2>
-          <p className="mt-4 text-amber-100/70">With our valued partners and well-wishers</p>
+          <p className="font-serif text-gold/80 tracking-[0.3em] text-xs sm:text-sm uppercase">PRESENTED BY</p>
+          <h2 className="font-display font-black gold-text text-4xl sm:text-5xl md:text-6xl mt-2">
+            ELITE GROUPS
+          </h2>
+          <p className="mt-3 text-amber-100/70 text-sm sm:text-base max-w-xl mx-auto font-body">
+            Organised by dedicated visionaries bringing royal Dandiya celebration to Motihari
+          </p>
         </Reveal>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12">
-          {partners.map(([n, s, link, photo], i) => {
-            const CardContent = (
-              <div className="glass rounded-2xl p-5 text-center h-full hover:border-gold/70 transition-all hover:scale-[1.02] cursor-default flex flex-col items-center justify-between">
-                <div className="w-full flex flex-col items-center">
-                  <div className="mx-auto h-16 w-16 sm:h-18 sm:w-18 rounded-full border-2 border-gold/70 overflow-hidden flex items-center justify-center font-display font-black gold-text text-lg shadow-[0_0_20px_rgba(245,192,74,0.3)] bg-wine/60" aria-hidden="true">
-                    {photo ? (
-                      <img
-                        src={photo}
-                        alt={n}
-                        className="h-full w-full object-cover object-top hover:scale-110 transition-transform duration-300"
-                        onError={(e) => {
-                          e.target.style.display = 'none'
-                        }}
-                      />
-                    ) : (
-                      <span>{n.split(' ').map((w) => w[0]).slice(0, 2).join('')}</span>
+
+        {/* TOP ROW: Core Organisers (Ujjawal Jaiswal -> Aryan Kalwar -> Shreshth Jaiswal) */}
+        <div className="mt-10 sm:mt-12">
+          <Reveal className="text-center mb-6">
+            <span className="inline-block font-serif text-[11px] sm:text-xs tracking-[0.25em] text-gold uppercase px-4 py-1 rounded-full border border-gold/40 glass shadow-[0_0_15px_rgba(245,192,74,0.15)]">
+              ORGANISED BY
+            </span>
+          </Reveal>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6 max-w-3xl mx-auto">
+            {organisers.map((person, i) => {
+              const CardContent = (
+                <div className="glass rounded-2xl sm:rounded-3xl p-6 text-center h-full border border-gold/40 hover:border-gold transition-all duration-300 hover:scale-[1.03] cursor-default flex flex-col items-center justify-between shadow-[0_0_30px_rgba(245,192,74,0.12)] hover:shadow-[0_0_45px_rgba(245,192,74,0.25)] bg-gradient-to-b from-[#3a0a14]/60 via-[#1f0409]/75 to-[#0d0103]/90 group">
+                  <div className="w-full flex flex-col items-center">
+                    {/* Photo / Emblem */}
+                    <div
+                      className="mx-auto h-20 w-20 sm:h-24 sm:w-24 rounded-full border-2 border-gold/80 overflow-hidden flex items-center justify-center font-display font-black gold-text text-xl shadow-[0_0_25px_rgba(245,192,74,0.35)] bg-wine/80 group-hover:scale-105 transition-transform duration-300"
+                      aria-hidden="true"
+                    >
+                      {person.photo ? (
+                        <img
+                          src={person.photo}
+                          alt={person.name}
+                          className="h-full w-full object-cover object-top hover:scale-110 transition-transform duration-300"
+                          onError={(e) => {
+                            e.target.style.display = 'none'
+                          }}
+                        />
+                      ) : (
+                        <span>
+                          {person.name
+                            .split(' ')
+                            .map((w) => w[0])
+                            .slice(0, 2)
+                            .join('')}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Name */}
+                    <h3 className="font-display font-black text-gold mt-4 text-base sm:text-lg flex items-center justify-center gap-1 group-hover:text-amber-200 transition-colors">
+                      {person.name}
+                    </h3>
+
+                    {/* Role Badge */}
+                    <span className="inline-block mt-1 text-xs font-serif font-medium text-amber-200/80 px-2.5 py-0.5 rounded-full bg-gold/10 border border-gold/30">
+                      {person.role}
+                    </span>
+                  </div>
+
+                  {person.link && (
+                    <span className="inline-block mt-4 text-xs text-gold/90 group-hover:text-gold underline font-serif font-medium">
+                      View Profile →
+                    </span>
+                  )}
+                </div>
+              )
+
+              return (
+                <Reveal key={person.name} delay={i * 0.1}>
+                  {person.link ? (
+                    <a href={person.link} target="_blank" rel="noopener noreferrer" className="block h-full group">
+                      {CardContent}
+                    </a>
+                  ) : (
+                    CardContent
+                  )}
+                </Reveal>
+              )
+            })}
+          </div>
+        </div>
+
+        {/* BOTTOM SECTION: Valued Partners (Equal Spacing) */}
+        <div className="mt-14 sm:mt-16 pt-10 border-t border-gold/20">
+          <Reveal className="text-center mb-8">
+            <span className="inline-block font-serif text-[11px] sm:text-xs tracking-[0.25em] text-amber-200/80 uppercase">
+              VALUED PARTNERS & WELL-WISHERS
+            </span>
+            <p className="text-xs text-amber-100/60 mt-1">Supporting the celebration with pride</p>
+          </Reveal>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+            {partners.map((partner, i) => {
+              const CardContent = (
+                <div className="glass rounded-2xl p-5 text-center h-full border border-gold/25 hover:border-gold/60 transition-all duration-300 hover:scale-[1.02] cursor-default flex flex-col items-center justify-between bg-black/40 hover:bg-black/60 shadow-lg">
+                  <div className="w-full flex flex-col items-center">
+                    {/* Emblem */}
+                    <div
+                      className="mx-auto h-14 w-14 sm:h-16 sm:w-16 rounded-full border border-gold/60 overflow-hidden flex items-center justify-center font-display font-black text-gold text-base shadow-[0_0_15px_rgba(245,192,74,0.2)] bg-wine/50"
+                      aria-hidden="true"
+                    >
+                      <span>
+                        {partner.name
+                          .split(' ')
+                          .map((w) => w[0])
+                          .slice(0, 2)
+                          .join('')}
+                      </span>
+                    </div>
+
+                    <h4 className="font-serif font-bold text-amber-100 mt-3 text-sm sm:text-base">
+                      {partner.name}
+                    </h4>
+                    {partner.desc && (
+                      <p className="text-xs text-amber-100/60 mt-1 leading-relaxed">
+                        {partner.desc}
+                      </p>
                     )}
                   </div>
-                  <h3 className="font-serif font-bold text-gold mt-3 text-sm md:text-base flex items-center justify-center gap-1">
-                    {n}
-                  </h3>
-                  {s && <p className="text-xs text-amber-100/60 mt-1">{s}</p>}
                 </div>
-                {link && (
-                  <span className="inline-block mt-3 text-[11px] text-gold/80 hover:text-gold underline font-medium">
-                    View Profile
-                  </span>
-                )}
-              </div>
-            )
+              )
 
-            return (
-              <Reveal key={n} delay={i * 0.06}>
-                {link ? (
-                  <a href={link} target="_blank" rel="noopener noreferrer" className="block h-full group">
-                    {CardContent}
-                  </a>
-                ) : (
-                  CardContent
-                )}
-              </Reveal>
-            )
-          })}
+              return (
+                <Reveal key={partner.name} delay={0.15 + i * 0.05}>
+                  {CardContent}
+                </Reveal>
+              )
+            })}
+          </div>
         </div>
       </div>
     </section>
   )
 }
+
