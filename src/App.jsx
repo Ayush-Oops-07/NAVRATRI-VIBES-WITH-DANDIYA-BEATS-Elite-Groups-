@@ -16,10 +16,12 @@ import WhatsAppButton from './components/WhatsAppButton'
 import SponsorIntro from './components/SponsorIntro'
 import BookingModal from './components/BookingModal'
 import { BookingProvider } from './context/BookingContext'
+import { Analytics } from '@vercel/analytics/react'
 
 export default function App() {
   return (
     <BookingProvider>
+      <Analytics />
       <SponsorIntro />
       <Navbar />
       <main>
