@@ -26,18 +26,18 @@ export const sponsorConfig = {
   celebrationPartners: [
     {
       id: 'keshri',
-      category: 'POWERED BY',
+      category: 'CELEBRATION PARTNER',
       name: 'Keshri Collection',
-      tagline: '⚡ Powered By Partner',
+      tagline: '✨ Ethnic Wear Partner',
       logo: '/Sponsors/keshri.jpeg',
       link: KESHRI_COLLECTION_INSTAGRAM,
       accentColor: '#e2e8f0', // Silver
-      badgeText: 'Powered By Partner',
-      description: 'Exclusive fashion & ethnic wear partner powering Navratri Vibes 2026.',
+      badgeText: 'Celebration Partner',
+      description: 'Exclusive fashion & ethnic wear partner for Navratri Vibes 2026.',
     },
     {
       id: 'ramjee',
-      category: 'PRESENTED BY',
+      category: 'TITLE PARTNER',
       name: 'Ramjee Prasad',
       tagline: '✨ Grand Title Partner',
       logo: '/Sponsors/ramji.jpeg',
@@ -45,7 +45,7 @@ export const sponsorConfig = {
       accentColor: '#f5c04a', // Gold
       badgeText: 'Official Title Partner',
       isCenter: true,
-      description: 'Proud Title Partner presenting the grandest Dandiya celebration in Motihari.',
+      description: 'Proud Title Partner for the grandest Dandiya celebration in Motihari.',
     },
     {
       id: 'ganpati',
@@ -98,14 +98,14 @@ export const sponsorConfig = {
     },
     {
       id: 'bahu',
-      category: 'CO-POWERED BY',
+      category: 'DESIGNER PARTNER',
       name: 'Bahu Begam',
-      tagline: '🌟 Co-Powered By Partner',
+      tagline: '🌟 Designer Wear Partner',
       logo: '/Sponsors/bahu.jpeg',
       link: BAHU_BEGAM_INSTAGRAM,
       accentColor: '#d97706', // Bronze / Copper
-      badgeText: 'Co-Powered Partner',
-      description: 'Celebrated traditional designer showroom co-powering the festivities.',
+      badgeText: 'Official Sponsor',
+      description: 'Celebrated traditional designer showroom for the festivities.',
     },
   ],
 }

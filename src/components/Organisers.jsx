@@ -70,7 +70,7 @@ export default function Organisers() {
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Main Section Header */}
         <Reveal className="text-center">
-          <p className="font-serif text-gold/80 tracking-[0.3em] text-xs sm:text-sm uppercase">PRESENTED BY</p>
+          <p className="font-serif text-gold/80 tracking-[0.3em] text-xs sm:text-sm uppercase">ORGANISED BY</p>
           <h2 className="font-display font-black gold-text text-4xl sm:text-5xl md:text-6xl mt-2">
             ELITE GROUPS
           </h2>
