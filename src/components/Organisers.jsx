@@ -1,14 +1,19 @@
 import { Reveal } from './ui'
-import { ARYAN_KALWAR_LINK } from '../constants'
+import {
+  ARYAN_KALWAR_LINK,
+  UJWAL_JAISWAL_LINK,
+  SHRESHTH_JAISWAL_LINK,
+  NEHA_HOSIERY_LINK,
+} from '../constants'
 
 // Core Organising Committee (Top Row: Ujjawal Jaiswal -> Aryan Kalwar -> Shreshth Jaiswal)
 const organisers = [
   {
     name: 'Ujjawal Jaiswal',
     role: 'Founder',
-    link: '',
-    photo: '/team_members/ujwal.png',
-    alt: 'Ujwal - Elites Group Member',
+    link: UJWAL_JAISWAL_LINK,
+    photo: '/team_members/ujwal.jpeg',
+    alt: 'Ujwal Jaiswal - Elites Group Founder',
   },
   {
     name: 'Aryan Kalwar',
@@ -20,9 +25,9 @@ const organisers = [
   {
     name: 'Shreshth Jaiswal',
     role: 'Organiser',
-    link: '',
+    link: SHRESHTH_JAISWAL_LINK,
     photo: '/team_members/shreshte.jpeg',
-    alt: 'Shreshtra - Elites Group Member',
+    alt: 'Shreshth Jaiswal - Elites Group Member',
   },
 ]
 
@@ -43,8 +48,8 @@ const partners = [
   {
     name: 'Neha Hosiery',
     desc: 'Neha Apparels, Main Road Motihari',
-    link: '',
-    photo: '',
+    link: NEHA_HOSIERY_LINK,
+    photo: '/team_members/neha.jpg',
   },
   {
     name: 'Pramod Medical',
@@ -162,23 +167,34 @@ export default function Organisers() {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
             {partners.map((partner, i) => {
               const CardContent = (
-                <div className="glass-card rounded-2xl p-5 text-center h-full border border-gold/25 hover:border-gold/60 transition-all duration-300 hover:scale-[1.02] cursor-default flex flex-col items-center justify-between shadow-lg">
+                <div className="glass-card rounded-2xl p-5 text-center h-full border border-gold/25 hover:border-gold/60 transition-all duration-300 hover:scale-[1.02] cursor-default flex flex-col items-center justify-between shadow-lg group">
                   <div className="w-full flex flex-col items-center">
-                    {/* Emblem */}
+                    {/* Emblem / Logo */}
                     <div
-                      className="mx-auto h-14 w-14 sm:h-16 sm:w-16 rounded-full border border-gold/60 overflow-hidden flex items-center justify-center font-display font-black text-gold text-base shadow-[0_0_15px_rgba(255,211,106,0.2)] bg-[#25103F]"
+                      className="mx-auto h-14 w-14 sm:h-16 sm:w-16 rounded-full border border-gold/60 overflow-hidden flex items-center justify-center font-display font-black text-gold text-base shadow-[0_0_15px_rgba(255,211,106,0.2)] bg-[#25103F] group-hover:scale-105 transition-transform duration-300"
                       aria-hidden="true"
                     >
-                      <span>
-                        {partner.name
-                          .split(' ')
-                          .map((w) => w[0])
-                          .slice(0, 2)
-                          .join('')}
-                      </span>
+                      {partner.photo ? (
+                        <img
+                          src={partner.photo}
+                          alt={`${partner.name} logo`}
+                          className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-300"
+                          onError={(e) => {
+                            e.target.style.display = 'none'
+                          }}
+                        />
+                      ) : (
+                        <span>
+                          {partner.name
+                            .split(' ')
+                            .map((w) => w[0])
+                            .slice(0, 2)
+                            .join('')}
+                        </span>
+                      )}
                     </div>
 
-                    <h4 className="font-serif font-bold text-amber-100 mt-3 text-sm sm:text-base">
+                    <h4 className="font-serif font-bold text-amber-100 mt-3 text-sm sm:text-base group-hover:text-gold transition-colors">
                       {partner.name}
                     </h4>
                     {partner.desc && (
@@ -187,12 +203,29 @@ export default function Organisers() {
                       </p>
                     )}
                   </div>
+
+                  {partner.link && (
+                    <span className="inline-block mt-3 text-[11px] text-gold/90 group-hover:text-gold underline font-serif font-medium">
+                      Instagram →
+                    </span>
+                  )}
                 </div>
               )
 
               return (
                 <Reveal key={partner.name} delay={0.15 + i * 0.05}>
-                  {CardContent}
+                  {partner.link ? (
+                    <a
+                      href={partner.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block h-full group"
+                    >
+                      {CardContent}
+                    </a>
+                  ) : (
+                    CardContent
+                  )}
                 </Reveal>
               )
             })}

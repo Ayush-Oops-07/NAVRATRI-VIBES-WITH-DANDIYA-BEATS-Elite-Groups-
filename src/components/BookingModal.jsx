@@ -14,7 +14,7 @@ export default function BookingModal() {
   const [selectedLocationId, setSelectedLocationId] = useState(LOCATIONS[0]?.id || '')
   const [errors, setErrors] = useState({})
   const [submitted, setSubmitted] = useState(false)
-  const [submittedLocationName, setSubmittedLocationName] = useState('')
+  const [submittedLocation, setSubmittedLocation] = useState(null)
   const [lastWhatsAppUrl, setLastWhatsAppUrl] = useState('')
 
   const nameInputRef = useRef(null)
@@ -29,7 +29,7 @@ export default function BookingModal() {
       setSelectedLocationId(LOCATIONS[0]?.id || '')
       setErrors({})
       setSubmitted(false)
-      setSubmittedLocationName('')
+      setSubmittedLocation(null)
       setLastWhatsAppUrl('')
 
       // Body scroll lock
@@ -102,18 +102,20 @@ export default function BookingModal() {
     const selectedLoc = LOCATIONS.find((loc) => loc.id === selectedLocationId) || LOCATIONS[0]
     const cleanPhone = phone.replace(/\D/g, '')
 
-    // Message format (exact):
+    // Message format:
     // Navratri Vibes 2026 - Pass Booking
     // Naam: <name>
     // Phone: <phone>
     // Pass: <count>
-    // Location: <location name>
-    const message = `Navratri Vibes 2026 - Pass Booking\nNaam: ${name.trim()}\nPhone: ${cleanPhone}\nPass: ${passes}\nLocation: ${selectedLoc.name}`
+    // Pickup Counter: <location name>
+    // Address: <address>
+    // Location Map: <mapUrl>
+    const message = `Navratri Vibes 2026 - Pass Booking\nNaam: ${name.trim()}\nPhone: ${cleanPhone}\nPass: ${passes}\nPickup Counter: ${selectedLoc.name}\nAddress: ${selectedLoc.address}\nLocation Map: ${selectedLoc.mapUrl}`
     const targetPhone = selectedLoc.whatsapp.replace(/\D/g, '')
     const whatsappUrl = `https://wa.me/${targetPhone}?text=${encodeURIComponent(message)}`
 
     setLastWhatsAppUrl(whatsappUrl)
-    setSubmittedLocationName(selectedLoc.name)
+    setSubmittedLocation(selectedLoc)
     setSubmitted(true)
 
     // Open WhatsApp in a new tab
@@ -212,24 +214,73 @@ export default function BookingModal() {
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
-                className="text-center py-4 space-y-6"
+                className="text-center py-2 space-y-5"
               >
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-b from-gold/20 to-amber-500/10 border border-gold text-gold shadow-[0_0_25px_rgba(245,192,74,0.35)]">
                   <CheckCircle2 size={36} aria-hidden="true" />
                 </div>
 
-                <div className="glass rounded-2xl p-5 sm:p-6 text-left border border-gold/30 space-y-3">
-                  <p className="text-sm sm:text-base leading-relaxed text-amber-100 font-medium">
-                    Message ready on WhatsApp. Our team will reply with the time to visit{' '}
-                    <span className="text-gold font-bold">{submittedLocationName}</span>. Payment and your physical ticket are collected at the location.
-                  </p>
-                  <div className="pt-3 border-t border-gold/20 text-xs text-amber-100/70 flex items-center gap-2">
-                    <Ticket size={16} className="text-gold shrink-0" aria-hidden="true" />
-                    <span>Selected: {passes} {passes === 1 ? 'Pass' : 'Passes'} • Pickup at {submittedLocationName}</span>
+                <div className="glass rounded-2xl p-4 sm:p-5 text-left border border-gold/40 shadow-lg space-y-3 bg-[#1A0E33]/90">
+                  <div className="flex items-center justify-between border-b border-gold/20 pb-2">
+                    <span className="text-xs uppercase font-serif tracking-wider text-gold font-bold flex items-center gap-1.5">
+                      <Ticket size={14} className="text-gold" /> Pass Booking Request Sent
+                    </span>
+                    <span className="text-xs text-amber-200/90 font-mono font-bold bg-gold/15 px-2.5 py-0.5 rounded-full border border-gold/30">
+                      {passes} {passes === 1 ? 'Pass' : 'Passes'}
+                    </span>
                   </div>
+
+                  <div className="text-xs sm:text-sm space-y-1.5 text-amber-100/90 font-serif">
+                    <p>
+                      <strong className="text-gold">Name:</strong> {name.trim()}
+                    </p>
+                    <p>
+                      <strong className="text-gold">Phone:</strong> +91 {phone.replace(/\D/g, '')}
+                    </p>
+                    <p>
+                      <strong className="text-gold">Pickup Counter:</strong>{' '}
+                      <span className="text-white font-semibold">{submittedLocation?.name}</span>
+                    </p>
+                    <p className="text-amber-100/70 text-xs">
+                      📍 {submittedLocation?.address}
+                    </p>
+                  </div>
+
+                  {/* Embedded Google Map */}
+                  {submittedLocation?.mapEmbed && (
+                    <div className="mt-3 pt-3 border-t border-gold/20">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-xs font-serif text-gold font-bold flex items-center gap-1">
+                          <MapPin size={13} className="text-pink" />
+                          Pickup Counter Location Map
+                        </span>
+                        <a
+                          href={submittedLocation.mapUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[11px] text-amber-300 hover:text-gold flex items-center gap-1 underline font-sans"
+                        >
+                          Open in Maps ↗
+                        </a>
+                      </div>
+                      <div className="rounded-xl overflow-hidden border border-gold/30 shadow-md h-44 sm:h-48 w-full bg-black/40">
+                        <iframe
+                          title={`Map of ${submittedLocation.name}`}
+                          src={submittedLocation.mapEmbed}
+                          className="w-full h-full border-0"
+                          loading="lazy"
+                          referrerPolicy="no-referrer-when-downgrade"
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  <p className="text-[11px] text-amber-100/70 leading-relaxed pt-1">
+                    * Message created on WhatsApp. Please send the message to complete booking. Payment and physical passes are collected at the counter.
+                  </p>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                <div className="flex flex-col sm:flex-row gap-3 pt-1">
                   {lastWhatsAppUrl && (
                     <a
                       href={lastWhatsAppUrl}
@@ -239,6 +290,17 @@ export default function BookingModal() {
                     >
                       <MessageCircle size={18} aria-hidden="true" />
                       Open WhatsApp Again
+                    </a>
+                  )}
+                  {submittedLocation?.mapUrl && (
+                    <a
+                      href={submittedLocation.mapUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-1.5 rounded-full px-4 py-3 font-serif font-semibold text-xs border border-gold/50 bg-gold/10 text-gold hover:bg-gold/20 transition-all min-h-[44px]"
+                    >
+                      <MapPin size={15} />
+                      Open Maps
                     </a>
                   )}
                   <button
@@ -395,12 +457,18 @@ export default function BookingModal() {
                     {LOCATIONS.map((loc) => {
                       const isSelected = selectedLocationId === loc.id
                       return (
-                        <button
+                        <div
                           key={loc.id}
-                          type="button"
                           role="radio"
+                          tabIndex={0}
                           aria-checked={isSelected}
                           onClick={() => handleLocationSelect(loc.id)}
+                          onKeyDown={(e) => {
+                            if (e.key === ' ' || e.key === 'Enter') {
+                              e.preventDefault()
+                              handleLocationSelect(loc.id)
+                            }
+                          }}
                           className={`w-full text-left p-3.5 rounded-xl transition-all flex items-start gap-3 min-h-[44px] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-gold ${
                             isSelected
                               ? 'bg-gradient-to-r from-gold/25 via-amber-500/15 to-transparent border-2 border-gold shadow-[0_0_20px_rgba(245,192,74,0.3)]'
@@ -430,8 +498,19 @@ export default function BookingModal() {
                               <MapPin size={12} className="text-gold/70 shrink-0" aria-hidden="true" />
                               <span className="truncate">{loc.address}</span>
                             </p>
+                            {loc.mapUrl && (
+                              <a
+                                href={loc.mapUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                className="inline-flex items-center gap-1 text-[11px] text-amber-300 hover:text-gold hover:underline mt-1 font-serif"
+                              >
+                                View on Google Maps ↗
+                              </a>
+                            )}
                           </div>
-                        </button>
+                        </div>
                       )
                     })}
                   </div>

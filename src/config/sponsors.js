@@ -8,7 +8,7 @@ import {
   INSTAGRAM,
 } from '../constants'
 
-const PHONE = '917631690500'
+const PHONE = '917295049990'
 
 export const sponsorConfig = {
   // Total duration in seconds for intro popup

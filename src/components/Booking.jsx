@@ -92,7 +92,7 @@ export default function Booking() {
 
             <div className="flex items-center gap-2 text-center sm:text-right">
               <MapPin size={15} className="text-pink shrink-0" />
-              <span>Pass collection points across Motihari</span>
+              <span>2 Official Pass collection counters in Motihari</span>
             </div>
           </div>
         </div>
