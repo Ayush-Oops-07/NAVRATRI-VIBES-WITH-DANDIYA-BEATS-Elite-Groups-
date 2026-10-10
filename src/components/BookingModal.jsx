@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { X, CheckCircle2, MessageCircle, Ticket, MapPin, Plus, Minus, User, Phone } from 'lucide-react'
+import { X, CheckCircle2, MessageCircle, Ticket, MapPin, Plus, Minus, User, Phone, Users } from 'lucide-react'
 import { useBooking } from '../context/BookingContext'
 import { LOCATIONS } from '../config/locations'
 import { Btn, Diya } from './ui'
@@ -10,6 +10,7 @@ export default function BookingModal() {
 
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
+  const [passType, setPassType] = useState('Couple Pass')
   const [passes, setPasses] = useState(1)
   const [selectedLocationId, setSelectedLocationId] = useState(LOCATIONS[0]?.id || '')
   const [errors, setErrors] = useState({})
@@ -25,6 +26,7 @@ export default function BookingModal() {
     if (isOpen) {
       setName('')
       setPhone('')
+      setPassType('Couple Pass')
       setPasses(1)
       setSelectedLocationId(LOCATIONS[0]?.id || '')
       setErrors({})
@@ -110,7 +112,7 @@ export default function BookingModal() {
     // Pickup Counter: <location name>
     // Address: <address>
     // Location Map: <mapUrl>
-    const message = `Navratri Vibes 2026 - Pass Booking\nNaam: ${name.trim()}\nPhone: ${cleanPhone}\nPass: ${passes}\nPickup Counter: ${selectedLoc.name}\nAddress: ${selectedLoc.address}\nLocation Map: ${selectedLoc.mapUrl}`
+    const message = `Navratri Vibes 2026 - Pass Booking\nNaam: ${name.trim()}\nPhone: ${cleanPhone}\nPass Type: ${passType}\nPass: ${passes}\nPickup Counter: ${selectedLoc.name}\nAddress: ${selectedLoc.address}\nLocation Map: ${selectedLoc.mapUrl}`
     const targetPhone = selectedLoc.whatsapp.replace(/\D/g, '')
     const whatsappUrl = `https://wa.me/${targetPhone}?text=${encodeURIComponent(message)}`
 
@@ -236,6 +238,9 @@ export default function BookingModal() {
                     </p>
                     <p>
                       <strong className="text-gold">Phone:</strong> +91 {phone.replace(/\D/g, '')}
+                    </p>
+                    <p>
+                      <strong className="text-gold">Pass Type:</strong> {passType}
                     </p>
                     <p>
                       <strong className="text-gold">Pickup Counter:</strong>{' '}
@@ -391,7 +396,53 @@ export default function BookingModal() {
                   )}
                 </div>
 
-                {/* 3. Number of Passes Stepper */}
+                {/* 3. Pass Type Selection */}
+                <div>
+                  <label
+                    id="booking-passtype-label"
+                    className="block font-serif text-sm font-semibold text-gold mb-1.5"
+                  >
+                    Pass Type <span className="text-amber-300">*</span>
+                  </label>
+                  <div
+                    role="radiogroup"
+                    aria-labelledby="booking-passtype-label"
+                    className="grid grid-cols-2 gap-3"
+                  >
+                    {['Couple Pass', 'Family Pass'].map((type) => {
+                      const isSelected = passType === type
+                      return (
+                        <button
+                          key={type}
+                          type="button"
+                          onClick={() => setPassType(type)}
+                          className={`relative flex flex-col items-center justify-center p-3 rounded-xl border transition-all overflow-hidden min-h-[44px] ${
+                            isSelected
+                              ? 'bg-gold/20 border-gold/60 text-amber-100'
+                              : 'bg-black/40 border-gold/20 text-gold/60 hover:bg-gold/10 hover:border-gold/30 hover:text-gold/80'
+                          }`}
+                          aria-checked={isSelected}
+                          role="radio"
+                        >
+                          {isSelected && (
+                            <motion.div
+                              layoutId="passTypeHighlight"
+                              className="absolute inset-0 bg-gold/10 rounded-xl"
+                              initial={false}
+                              transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
+                            />
+                          )}
+                          <div className="relative flex items-center gap-2">
+                            <Users size={18} aria-hidden="true" className={isSelected ? 'text-gold' : ''} />
+                            <span className="font-semibold text-sm">{type}</span>
+                          </div>
+                        </button>
+                      )
+                    })}
+                  </div>
+                </div>
+
+                {/* 4. Number of Passes Stepper */}
                 <div>
                   <label
                     id="booking-passes-label"
