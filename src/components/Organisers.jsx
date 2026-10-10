@@ -5,21 +5,24 @@ import { ARYAN_KALWAR_LINK } from '../constants'
 const organisers = [
   {
     name: 'Ujjawal Jaiswal',
-    role: 'Organiser',
+    role: 'Founder',
     link: '',
-    photo: '',
+    photo: '/team_members/ujwal.png',
+    alt: 'Ujwal - Elites Group Member',
   },
   {
     name: 'Aryan Kalwar',
     role: 'Key Organiser',
     link: ARYAN_KALWAR_LINK,
     photo: '/team_members/Aryan_kalwar.png',
+    alt: 'Aryan Kalwar - Elites Group Member',
   },
   {
     name: 'Shreshth Jaiswal',
     role: 'Organiser',
     link: '',
-    photo: '',
+    photo: '/team_members/shreshte.jpeg',
+    alt: 'Shreshtra - Elites Group Member',
   },
 ]
 
@@ -53,13 +56,13 @@ const partners = [
 
 export default function Organisers() {
   return (
-    <section className="section bg-ink relative overflow-hidden">
+    <section className="section bg-[#160D2B] relative overflow-hidden">
       {/* Ambient background glow */}
       <div
         className="absolute inset-0 pointer-events-none opacity-30"
         style={{
           background:
-            'radial-gradient(ellipse 70% 50% at 50% 30%, rgba(245,192,74,0.12) 0%, transparent 70%)',
+            'radial-gradient(ellipse 70% 50% at 50% 30%, rgba(255, 211, 106, 0.12) 0%, transparent 70%)',
         }}
         aria-hidden="true"
       />
@@ -71,7 +74,7 @@ export default function Organisers() {
           <h2 className="font-display font-black gold-text text-4xl sm:text-5xl md:text-6xl mt-2">
             ELITE GROUPS
           </h2>
-          <p className="mt-3 text-amber-100/70 text-sm sm:text-base max-w-xl mx-auto font-body">
+          <p className="mt-3 text-[#D8CDE7] text-sm sm:text-base max-w-xl mx-auto font-body">
             Organised by dedicated visionaries bringing royal Dandiya celebration to Motihari
           </p>
         </Reveal>
@@ -79,7 +82,7 @@ export default function Organisers() {
         {/* TOP ROW: Core Organisers (Ujjawal Jaiswal -> Aryan Kalwar -> Shreshth Jaiswal) */}
         <div className="mt-10 sm:mt-12">
           <Reveal className="text-center mb-6">
-            <span className="inline-block font-serif text-[11px] sm:text-xs tracking-[0.25em] text-gold uppercase px-4 py-1 rounded-full border border-gold/40 glass shadow-[0_0_15px_rgba(245,192,74,0.15)]">
+            <span className="inline-block font-serif text-[11px] sm:text-xs tracking-[0.25em] text-gold uppercase px-4 py-1 rounded-full border border-gold/40 glass shadow-[0_0_15px_rgba(255,211,106,0.15)]">
               ORGANISED BY
             </span>
           </Reveal>
@@ -87,17 +90,16 @@ export default function Organisers() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6 max-w-3xl mx-auto">
             {organisers.map((person, i) => {
               const CardContent = (
-                <div className="glass rounded-2xl sm:rounded-3xl p-6 text-center h-full border border-gold/40 hover:border-gold transition-all duration-300 hover:scale-[1.03] cursor-default flex flex-col items-center justify-between shadow-[0_0_30px_rgba(245,192,74,0.12)] hover:shadow-[0_0_45px_rgba(245,192,74,0.25)] bg-gradient-to-b from-[#3a0a14]/60 via-[#1f0409]/75 to-[#0d0103]/90 group">
+                <div className="glass-card rounded-2xl sm:rounded-3xl p-6 text-center h-full border border-gold/40 hover:border-gold transition-all duration-300 hover:scale-[1.03] cursor-default flex flex-col items-center justify-between shadow-[0_0_30px_rgba(255,211,106,0.12)] hover:shadow-[0_0_45px_rgba(255,211,106,0.25)] bg-gradient-to-b from-[#3B1666]/60 via-[#25103F]/75 to-[#160D2B]/90 group">
                   <div className="w-full flex flex-col items-center">
                     {/* Photo / Emblem */}
                     <div
-                      className="mx-auto h-20 w-20 sm:h-24 sm:w-24 rounded-full border-2 border-gold/80 overflow-hidden flex items-center justify-center font-display font-black gold-text text-xl shadow-[0_0_25px_rgba(245,192,74,0.35)] bg-wine/80 group-hover:scale-105 transition-transform duration-300"
-                      aria-hidden="true"
+                      className="mx-auto h-20 w-20 sm:h-24 sm:w-24 rounded-full border-2 border-gold/80 overflow-hidden flex items-center justify-center font-display font-black gold-text text-xl shadow-[0_0_25px_rgba(255,211,106,0.35)] bg-[#25103F] group-hover:scale-105 transition-transform duration-300"
                     >
                       {person.photo ? (
                         <img
                           src={person.photo}
-                          alt={person.name}
+                          alt={person.alt || `${person.name} - Elites Group Member`}
                           className="h-full w-full object-cover object-top hover:scale-110 transition-transform duration-300"
                           onError={(e) => {
                             e.target.style.display = 'none'
@@ -160,11 +162,11 @@ export default function Organisers() {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
             {partners.map((partner, i) => {
               const CardContent = (
-                <div className="glass rounded-2xl p-5 text-center h-full border border-gold/25 hover:border-gold/60 transition-all duration-300 hover:scale-[1.02] cursor-default flex flex-col items-center justify-between bg-black/40 hover:bg-black/60 shadow-lg">
+                <div className="glass-card rounded-2xl p-5 text-center h-full border border-gold/25 hover:border-gold/60 transition-all duration-300 hover:scale-[1.02] cursor-default flex flex-col items-center justify-between shadow-lg">
                   <div className="w-full flex flex-col items-center">
                     {/* Emblem */}
                     <div
-                      className="mx-auto h-14 w-14 sm:h-16 sm:w-16 rounded-full border border-gold/60 overflow-hidden flex items-center justify-center font-display font-black text-gold text-base shadow-[0_0_15px_rgba(245,192,74,0.2)] bg-wine/50"
+                      className="mx-auto h-14 w-14 sm:h-16 sm:w-16 rounded-full border border-gold/60 overflow-hidden flex items-center justify-center font-display font-black text-gold text-base shadow-[0_0_15px_rgba(255,211,106,0.2)] bg-[#25103F]"
                       aria-hidden="true"
                     >
                       <span>

@@ -172,7 +172,7 @@ export default function BookingModal() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.94, y: 16 }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
-            className="relative w-full max-w-lg my-auto rounded-3xl bg-gradient-to-b from-[#240408] via-[#1a0306] to-[#0d0203] border border-gold/35 shadow-[0_0_50px_rgba(245,192,74,0.25)] p-5 sm:p-7 text-amber-100 max-h-[90vh] overflow-y-auto z-10"
+            className="relative w-full max-w-lg my-auto rounded-3xl bg-gradient-to-b from-[#25103F] via-[#160D2B] to-[#0E081D] border border-gold/40 shadow-[0_0_50px_rgba(255,211,106,0.25)] p-5 sm:p-7 text-[#FFF8F0] max-h-[90vh] overflow-y-auto z-10"
           >
             {/* Close Button */}
             <button
@@ -244,7 +244,7 @@ export default function BookingModal() {
                   <button
                     type="button"
                     onClick={closeBooking}
-                    className="flex-1 inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 font-serif font-bold text-sm bg-gradient-to-b from-[#ffe08a] via-gold to-[#c8791a] text-wine hover:scale-[1.02] transition-transform min-h-[44px] shadow-[0_0_25px_rgba(245,192,74,0.4)]"
+                    className="flex-1 inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 font-serif font-bold text-sm bg-gradient-to-r from-[#FFD36A] via-[#FF9A2E] to-[#FF8A36] text-[#160D2B] hover:scale-[1.02] transition-transform min-h-[44px] shadow-[0_0_25px_rgba(255,211,106,0.4)]"
                   >
                     Close
                   </button>

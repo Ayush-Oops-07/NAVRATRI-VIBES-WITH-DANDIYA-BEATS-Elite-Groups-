@@ -49,19 +49,20 @@ const partners = [
 
 export default function EventPartners() {
   return (
-    <section id="partners" className="section crimson-bg relative">
+    <section id="partners" className="section bg-[#160D2B] relative">
       {/* Background ambient lighting */}
       <div
         className="absolute inset-0 opacity-40 pointer-events-none"
         style={{
           background:
-            'radial-gradient(circle at 50% 50%, rgba(245,192,74,0.18) 0%, transparent 70%)',
+            'radial-gradient(circle at 50% 50%, rgba(255, 211, 106, 0.15) 0%, transparent 70%)',
         }}
         aria-hidden="true"
       />
 
       <div className="max-w-6xl mx-auto relative z-10">
         <Title
+          badge="COLLABORATION"
           deva="उत्सव निर्माता एवं सहयोगी"
           sub="The masterminds crafting the sound, visuals, and grand atmosphere of Navratri Vibes 2026"
         >
@@ -74,7 +75,7 @@ export default function EventPartners() {
             const Icon = partner.icon
             return (
               <Reveal key={partner.name} delay={index * 0.1}>
-                <div className="glass rounded-3xl p-6 sm:p-7 text-center h-full flex flex-col justify-between border-2 border-gold/60 hover:border-gold shadow-[0_0_35px_rgba(245,192,74,0.22)] hover:shadow-[0_0_55px_rgba(245,192,74,0.4)] bg-gradient-to-b from-[#3a0a14]/65 via-[#1f0409]/75 to-[#0d0103]/90 transition-all duration-300 hover:scale-[1.03] group">
+                <div className="glass-card rounded-3xl p-6 sm:p-7 text-center h-full flex flex-col justify-between border-2 border-gold/60 hover:border-gold shadow-[0_0_35px_rgba(255,211,106,0.2)] hover:shadow-[0_0_55px_rgba(255,211,106,0.4)] bg-gradient-to-b from-[#3B1666]/65 via-[#25103F]/75 to-[#160D2B]/90 transition-all duration-300 hover:scale-[1.03] group">
                   <div>
                     {/* Category Pill */}
                     <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-gold/15 border border-gold/70 text-gold text-xs font-serif font-bold tracking-widest uppercase mb-4 shadow-[0_0_15px_rgba(245,192,74,0.25)]">

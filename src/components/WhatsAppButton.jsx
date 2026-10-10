@@ -8,13 +8,13 @@ export default function WhatsAppButton() {
   const { openBooking } = useBooking()
 
   return (
-    <div className="fixed right-4 bottom-4 z-40 flex items-center gap-3">
+    <div className="fixed right-4 sm:right-6 bottom-4 sm:bottom-6 z-40 flex items-center gap-2.5">
       <motion.span
         initial={false}
-        animate={{ opacity: tip ? 1 : 0, x: tip ? 0 : 10 }}
-        className="hidden sm:block glass rounded-full px-4 py-2 text-sm text-gold pointer-events-none"
+        animate={{ opacity: tip ? 1 : 0, x: tip ? 0 : 8 }}
+        className="hidden sm:block glass-card rounded-full px-3.5 py-1.5 text-xs text-gold font-medium border border-gold/40 shadow-lg pointer-events-none"
       >
-        Book Your Pass
+        Book Pass on WhatsApp
       </motion.span>
       <button
         type="button"
@@ -25,10 +25,13 @@ export default function WhatsAppButton() {
         onMouseLeave={() => setTip(false)}
         onFocus={() => setTip(true)}
         onBlur={() => setTip(false)}
-        className="relative h-14 w-14 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-[0_0_25px_rgba(37,211,102,.6)] hover:scale-110 transition-transform cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+        className="relative h-13 w-13 sm:h-14 sm:w-14 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-[0_0_25px_rgba(37,211,102,.55)] hover:shadow-[0_0_35px_rgba(37,211,102,.8)] border-2 border-white/30 hover:scale-108 transition-all duration-300 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
       >
-        <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-30 pointer-events-none" aria-hidden="true" />
-        <MessageCircle className="relative" size={28} aria-hidden="true" />
+        <span
+          className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-25 pointer-events-none"
+          aria-hidden="true"
+        />
+        <MessageCircle className="relative" size={26} aria-hidden="true" />
       </button>
     </div>
   )

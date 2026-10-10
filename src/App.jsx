@@ -5,6 +5,7 @@ import AboutMotihari from './components/AboutMotihari'
 import DandiyaSection from './components/DandiyaSection'
 import Highlights from './components/Highlights'
 import Experience from './components/Experience'
+import Gallery from './components/Gallery'
 import Organisers from './components/Organisers'
 import EventPartners from './components/EventPartners'
 import Venue from './components/Venue'
@@ -28,6 +29,7 @@ export default function App() {
         <DandiyaSection />
         <Highlights />
         <Experience />
+        <Gallery />
         <Organisers />
         <EventPartners />
         <Venue />
