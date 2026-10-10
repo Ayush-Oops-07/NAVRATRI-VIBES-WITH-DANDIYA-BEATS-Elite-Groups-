@@ -17,11 +17,13 @@ import SponsorIntro from './components/SponsorIntro'
 import BookingModal from './components/BookingModal'
 import { BookingProvider } from './context/BookingContext'
 import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/react'
 
 export default function App() {
   return (
     <BookingProvider>
       <Analytics />
+      <SpeedInsights />
       <SponsorIntro />
       <Navbar />
       <main>
