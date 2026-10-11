@@ -49,6 +49,49 @@ export default function Booking() {
             Get your passes through our quick online request or reach out directly to the Elites Group team on WhatsApp.
           </p>
 
+          {/* Pass Details Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 text-left max-w-2xl mx-auto">
+            {/* Couple Pass */}
+            <div className="rounded-2xl p-4 sm:p-5 border border-gold/40 bg-gradient-to-b from-[#3B1666]/70 to-[#160D2B]/90 shadow-[0_8px_25px_rgba(0,0,0,0.5)] flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="font-display font-bold text-amber-200 text-base sm:text-lg flex items-center gap-1.5">
+                    👫 Couple Pass
+                  </span>
+                  <span className="text-[10px] uppercase tracking-wider px-2.5 py-0.5 rounded-full border border-gold/40 text-gold bg-gold/10 font-serif font-bold">
+                    1 Couple
+                  </span>
+                </div>
+                <p className="text-xs sm:text-sm text-[#FFF8F0] font-semibold">
+                  1 Male & 1 Female
+                </p>
+                <p className="text-[11px] text-[#D8CDE7]/80 mt-1 leading-snug">
+                  Strictly valid for 1 Male and 1 Female entry.
+                </p>
+              </div>
+            </div>
+
+            {/* Family Pass */}
+            <div className="rounded-2xl p-4 sm:p-5 border border-pink/50 bg-gradient-to-b from-[#4A154B]/70 to-[#160D2B]/90 shadow-[0_8px_25px_rgba(255,79,154,0.2)] flex flex-col justify-between relative overflow-hidden">
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-pink to-gold text-base sm:text-lg flex items-center gap-1.5">
+                    ✨ Family Pass
+                  </span>
+                  <span className="text-[10px] uppercase tracking-wider px-2.5 py-0.5 rounded-full border border-pink/50 text-[#FFD36A] bg-pink/20 font-serif font-bold">
+                    ₹999 Only
+                  </span>
+                </div>
+                <p className="text-xs sm:text-sm text-gold font-bold">
+                  🎟️ ₹999/- for 5 Members
+                </p>
+                <p className="text-[11px] text-amber-100/90 mt-1 leading-snug">
+                  👩 Minimum 2 Females + 👨 Maximum 3 Males
+                </p>
+              </div>
+            </div>
+          </div>
+
           {/* Action CTAs */}
           <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center items-center max-w-md sm:max-w-none mx-auto">
             <motion.div

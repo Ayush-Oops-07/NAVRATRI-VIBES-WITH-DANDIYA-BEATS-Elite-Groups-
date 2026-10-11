@@ -111,8 +111,10 @@ export default function BookingModal() {
     // Pass: <count>
     // Pickup Counter: <location name>
     // Address: <address>
-    // Location Map: <mapUrl>
-    const message = `Navratri Vibes 2026 - Pass Booking\nNaam: ${name.trim()}\nPhone: ${cleanPhone}\nPass Type: ${passType}\nPass: ${passes}\nPickup Counter: ${selectedLoc.name}\nAddress: ${selectedLoc.address}\nLocation Map: ${selectedLoc.mapUrl}`
+    const passTypeInfo = passType === 'Family Pass' 
+      ? 'Family Pass (₹999/- for 5 Members: Min 2 Females + Max 3 Males)'
+      : 'Couple Pass (1 Male & 1 Female)'
+    const message = `Navratri Vibes 2026 - Pass Booking\nNaam: ${name.trim()}\nPhone: ${cleanPhone}\nPass Type: ${passTypeInfo}\nPass: ${passes}\nPickup Counter: ${selectedLoc.name}\nAddress: ${selectedLoc.address}\nLocation Map: ${selectedLoc.mapUrl}`
     const targetPhone = selectedLoc.whatsapp.replace(/\D/g, '')
     const whatsappUrl = `https://wa.me/${targetPhone}?text=${encodeURIComponent(message)}`
 
@@ -409,16 +411,27 @@ export default function BookingModal() {
                     aria-labelledby="booking-passtype-label"
                     className="grid grid-cols-2 gap-3"
                   >
-                    {['Couple Pass', 'Family Pass'].map((type) => {
+                    {[
+                      {
+                        type: 'Couple Pass',
+                        icon: '👫',
+                        subtext: '1 Male & 1 Female',
+                      },
+                      {
+                        type: 'Family Pass',
+                        icon: '✨',
+                        subtext: '₹999 (5 Members)',
+                      },
+                    ].map(({ type, icon, subtext }) => {
                       const isSelected = passType === type
                       return (
                         <button
                           key={type}
                           type="button"
                           onClick={() => setPassType(type)}
-                          className={`relative flex flex-col items-center justify-center p-3 rounded-xl border transition-all overflow-hidden min-h-[44px] ${
+                          className={`relative flex flex-col items-center justify-center p-3 rounded-xl border transition-all overflow-hidden text-center min-h-[56px] ${
                             isSelected
-                              ? 'bg-gold/20 border-gold/60 text-amber-100'
+                              ? 'bg-gold/20 border-gold/60 text-amber-100 shadow-[0_0_15px_rgba(255,211,106,0.2)]'
                               : 'bg-black/40 border-gold/20 text-gold/60 hover:bg-gold/10 hover:border-gold/30 hover:text-gold/80'
                           }`}
                           aria-checked={isSelected}
@@ -432,14 +445,50 @@ export default function BookingModal() {
                               transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
                             />
                           )}
-                          <div className="relative flex items-center gap-2">
-                            <Users size={18} aria-hidden="true" className={isSelected ? 'text-gold' : ''} />
-                            <span className="font-semibold text-sm">{type}</span>
+                          <div className="relative flex flex-col items-center gap-0.5">
+                            <span className="font-semibold text-sm flex items-center gap-1.5">
+                              <span>{icon}</span> {type}
+                            </span>
+                            <span className={`text-[11px] font-medium ${isSelected ? 'text-amber-200' : 'text-gold/50'}`}>
+                              {subtext}
+                            </span>
                           </div>
                         </button>
                       )
                     })}
                   </div>
+
+                  {/* Pass Type Guidance */}
+                  {passType === 'Family Pass' ? (
+                    <motion.div
+                      initial={{ opacity: 0, y: -4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mt-2.5 p-3 rounded-xl bg-[#4A154B]/50 border border-pink/40 text-xs text-amber-100 flex flex-col gap-1 shadow-md"
+                    >
+                      <div className="flex items-center justify-between font-bold text-gold">
+                        <span className="flex items-center gap-1">💃✨ Family Pass Details</span>
+                        <span className="text-[#FFD36A] font-mono text-[11px] px-2 py-0.5 rounded bg-pink/25 border border-pink/40 font-bold">
+                          ₹999/- for 5 Members
+                        </span>
+                      </div>
+                      <p className="text-amber-100/90 text-[11.5px] mt-0.5">
+                        👩 Minimum 2 Females + 👨 Maximum 3 Males
+                      </p>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      initial={{ opacity: 0, y: -4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mt-2.5 p-2.5 rounded-xl bg-gold/10 border border-gold/30 text-xs text-amber-100 flex items-center justify-between shadow-sm"
+                    >
+                      <span className="font-semibold text-gold flex items-center gap-1.5">
+                        👫 Couple Pass:
+                      </span>
+                      <span className="text-amber-100/90 text-[11.5px] font-medium">
+                        1 Male & 1 Female Entry Only
+                      </span>
+                    </motion.div>
+                  )}
                 </div>
 
                 {/* 4. Number of Passes Stepper */}
