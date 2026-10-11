@@ -6,16 +6,7 @@ export default function AkaAiFloating() {
   const [tip, setTip] = useState(false)
 
   return (
-    <div className="fixed right-5 sm:right-7 bottom-20 sm:bottom-23 z-40 flex items-center gap-2">
-      {/* Tooltip for desktop */}
-      <motion.span
-        initial={false}
-        animate={{ opacity: tip ? 1 : 0, x: tip ? 0 : 6 }}
-        className="hidden sm:block glass-card rounded-full px-3 py-1 text-[11px] text-[#FFD36A] font-medium border border-gold/40 shadow-lg pointer-events-none whitespace-nowrap"
-      >
-        AKA AI Studio
-      </motion.span>
-
+    <div className="fixed left-4 sm:left-6 bottom-4 sm:bottom-6 z-40 flex items-center gap-2.5">
       {/* Floating Rotating Logo Circle */}
       <a
         href={AKAAI_STUDIO_LINK}
@@ -41,6 +32,15 @@ export default function AkaAiFloating() {
           />
         </motion.div>
       </a>
+
+      {/* Tooltip for desktop */}
+      <motion.span
+        initial={false}
+        animate={{ opacity: tip ? 1 : 0, x: tip ? 0 : -6 }}
+        className="hidden sm:block glass-card rounded-full px-3 py-1 text-[11px] text-[#FFD36A] font-medium border border-gold/40 shadow-lg pointer-events-none whitespace-nowrap"
+      >
+        AKA AI Studio
+      </motion.span>
     </div>
   )
 }
