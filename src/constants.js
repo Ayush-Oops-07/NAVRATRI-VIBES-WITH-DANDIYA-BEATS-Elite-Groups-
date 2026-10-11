@@ -22,5 +22,5 @@ export const SHADIS_DOT_COM_LINK = 'https://www.instagram.com/dandiya_beatss/' /
 // Official Sponsors Instagram Links
 export const RAMJEE_PRASAD_INSTAGRAM = 'https://www.instagram.com/ramjee_prasad_1952?stkn=ZWR6Z29sZDFuYWFn'
 export const BAHU_BEGAM_INSTAGRAM = 'https://www.instagram.com/bahubegam.17?stkn=MXhmdmNxc3Rja2Jp'
-export const KESHRI_COLLECTION_INSTAGRAM = 'https://www.instagram.com/keshricollection?stkn=MTY2MGR3OWJqYTZydw=='
+export const KESHRI_COLLECTION_INSTAGRAM = 'https://www.instagram.com/keshricollection?cplk=MXU2cGlta3gwaXd6dQ%3D%3D#'
 

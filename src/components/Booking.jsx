@@ -46,7 +46,7 @@ export default function Booking() {
           </p>
 
           <p className="text-xs sm:text-sm text-[#D8CDE7] max-w-lg mx-auto mt-3 leading-relaxed font-body">
-            Get your passes through our quick online request or reach out directly to the Elite Groups team on WhatsApp.
+            Get your passes through our quick online request or reach out directly to the Elites Group team on WhatsApp.
           </p>
 
           {/* Action CTAs */}

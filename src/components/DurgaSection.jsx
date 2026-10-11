@@ -73,7 +73,7 @@ export default function DurgaSection() {
                 together in an unbroken circle of dance.
               </p>
               <p className="text-[#D8CDE7]/90 text-sm sm:text-base leading-relaxed mt-4 font-body">
-                Organised by <strong className="text-gold font-serif">Elite Groups</strong> at the scenic
+                Organised by <strong className="text-gold font-serif">Elites Group</strong> at the scenic
                 <strong className="text-[#FFF8F0]"> Ram Bhawan Ram Resort in Motihari</strong>,
                 Navratri Vibes with Dandiya Beats 2026 is designed to celebrate this rich cultural heritage
                 with authentic traditional dance, exhilarating music, festive ambiance, and unforgettable memories with your loved ones.

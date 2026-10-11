@@ -31,7 +31,7 @@ export default function Footer() {
             WITH DANDIYA BEATS 2026
           </p>
           <p className="text-xs sm:text-sm text-[#D8CDE7]/80 mt-3 max-w-sm leading-relaxed font-body">
-            Organised by <strong className="text-gold">Elite Groups</strong>. Bringing the authentic spirit, vibrant colours, and royal grandeur of Navratri Dandiya Raas to Motihari, Bihar.
+            Organised by <strong className="text-gold">Elites Group</strong>. Bringing the authentic spirit, vibrant colours, and royal grandeur of Navratri Dandiya Raas to Motihari, Bihar.
           </p>
           <p className="text-xs text-gold/90 mt-4 font-serif">
             WhatsApp Hotline: <span className="font-mono text-white">{PHONE_DISPLAY}</span>
@@ -68,7 +68,7 @@ export default function Footer() {
 
       {/* Bottom Bar */}
       <div className="border-t border-gold/15 mt-12 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#D8CDE7]/70 max-w-7xl mx-auto">
-        <p>© 2026 Elite Groups. All Rights Reserved.</p>
+        <p>© 2026 Elites Group. All Rights Reserved.</p>
         <p className="flex items-center gap-1.5 flex-wrap justify-center">
           <span>Crafted for Navratri Celebrations by</span>
           <a

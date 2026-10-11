@@ -13,15 +13,18 @@ import Booking from './components/Booking'
 import Instagram from './components/Instagram'
 import Footer from './components/Footer'
 import WhatsAppButton from './components/WhatsAppButton'
+import AkaAiFloating from './components/AkaAiFloating'
 import SponsorIntro from './components/SponsorIntro'
 import BookingModal from './components/BookingModal'
 import { BookingProvider } from './context/BookingContext'
 import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/react'
 
 export default function App() {
   return (
     <BookingProvider>
       <Analytics />
+      <SpeedInsights />
       <SponsorIntro />
       <Navbar />
       <main>
@@ -39,6 +42,7 @@ export default function App() {
         <Instagram />
       </main>
       <Footer />
+      <AkaAiFloating />
       <WhatsAppButton />
       <BookingModal />
     </BookingProvider>

@@ -77,7 +77,7 @@ export default function Organisers() {
         <Reveal className="text-center">
           <p className="font-serif text-gold/80 tracking-[0.3em] text-xs sm:text-sm uppercase">ORGANISED BY</p>
           <h2 className="font-display font-black gold-text text-4xl sm:text-5xl md:text-6xl mt-2">
-            ELITE GROUPS
+            ELITES GROUP
           </h2>
           <p className="mt-3 text-[#D8CDE7] text-sm sm:text-base max-w-xl mx-auto font-body">
             Organised by dedicated visionaries bringing royal Dandiya celebration to Motihari

@@ -28,12 +28,13 @@ export const sponsorConfig = {
       id: 'keshri',
       category: 'CELEBRATION PARTNER',
       name: 'Keshri Collection',
-      tagline: '✨ Ethnic Wear Partner',
+      tagline: '📱 #1 Mobile Store in Motihari',
+      location: 'Main Road Gandhi Chowk Subhash Market Shop:-06 Motihari',
       logo: '/Sponsors/keshri.jpeg',
       link: KESHRI_COLLECTION_INSTAGRAM,
       accentColor: '#e2e8f0', // Silver
       badgeText: 'Celebration Partner',
-      description: 'Exclusive fashion & ethnic wear partner for Navratri Vibes 2026.',
+      description: 'Top Brands & Latest Models • Best Prices & Exclusive Offers | Mob: 9931084837',
     },
     {
       id: 'ramjee',

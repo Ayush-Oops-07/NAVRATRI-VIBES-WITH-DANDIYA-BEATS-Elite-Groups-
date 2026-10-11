@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Menu, X, Ticket, Sparkles } from 'lucide-react'
+import { Menu, X, Ticket } from 'lucide-react'
 import { useBooking } from '../context/BookingContext'
 
 const links = [
@@ -44,9 +44,13 @@ export default function Navbar() {
       >
         {/* Brand Logo */}
         <a href="#home" className="flex items-center gap-3 group focus:outline-none">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-purple via-pink to-gold flex items-center justify-center p-[1px] shadow-[0_0_20px_rgba(255,211,106,0.35)] group-hover:scale-105 transition-transform">
-            <div className="w-full h-full rounded-full bg-[#160D2B] flex items-center justify-center">
-              <Sparkles size={18} className="text-gold animate-pulse" />
+          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-gradient-to-tr from-[#8B3DCE] via-[#FF4F9A] to-[#FFD36A] p-[1.5px] shadow-[0_0_20px_rgba(255,211,106,0.4)] group-hover:scale-105 transition-transform shrink-0">
+            <div className="w-full h-full rounded-full overflow-hidden bg-[#160D2B]">
+              <img
+                src="/logo/logo_dandiyabeats.jpeg"
+                alt="Dandiya Beats Logo"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
           <div className="flex flex-col">

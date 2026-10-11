@@ -47,7 +47,7 @@ export default function Hero() {
           >
             <Sparkles size={14} className="text-pink animate-pulse" />
             <span className="tracking-widest uppercase font-serif text-[11px] sm:text-xs">
-              ELITE GROUPS PRESENTS
+              ELITES GROUP PRESENTS
             </span>
             <span className="text-gold/40">•</span>
             <span className="text-[#FFF8F0] hidden sm:inline">DANDIYA NIGHT 2026</span>
