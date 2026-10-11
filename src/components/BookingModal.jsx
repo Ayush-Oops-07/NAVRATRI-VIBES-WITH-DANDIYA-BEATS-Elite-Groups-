@@ -113,7 +113,7 @@ export default function BookingModal() {
     // Address: <address>
     const passTypeInfo = passType === 'Family Pass' 
       ? 'Family Pass (₹999/- for 5 Members: Min 2 Females + Max 3 Males)'
-      : 'Couple Pass (1 Male & 1 Female)'
+      : 'Couple Pass (₹499/-: 1 Male & 1 Female)'
     const message = `Navratri Vibes 2026 - Pass Booking\nNaam: ${name.trim()}\nPhone: ${cleanPhone}\nPass Type: ${passTypeInfo}\nPass: ${passes}\nPickup Counter: ${selectedLoc.name}\nAddress: ${selectedLoc.address}\nLocation Map: ${selectedLoc.mapUrl}`
     const targetPhone = selectedLoc.whatsapp.replace(/\D/g, '')
     const whatsappUrl = `https://wa.me/${targetPhone}?text=${encodeURIComponent(message)}`
@@ -415,7 +415,7 @@ export default function BookingModal() {
                       {
                         type: 'Couple Pass',
                         icon: '👫',
-                        subtext: '1 Male & 1 Female',
+                        subtext: '₹499 (1 M & 1 F)',
                       },
                       {
                         type: 'Family Pass',
@@ -479,14 +479,17 @@ export default function BookingModal() {
                     <motion.div
                       initial={{ opacity: 0, y: -4 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="mt-2.5 p-2.5 rounded-xl bg-gold/10 border border-gold/30 text-xs text-amber-100 flex items-center justify-between shadow-sm"
+                      className="mt-2.5 p-3 rounded-xl bg-gold/10 border border-gold/30 text-xs text-amber-100 flex flex-col gap-1 shadow-sm"
                     >
-                      <span className="font-semibold text-gold flex items-center gap-1.5">
-                        👫 Couple Pass:
-                      </span>
-                      <span className="text-amber-100/90 text-[11.5px] font-medium">
-                        1 Male & 1 Female Entry Only
-                      </span>
+                      <div className="flex items-center justify-between font-bold text-gold">
+                        <span className="flex items-center gap-1">👫 Couple Pass Details</span>
+                        <span className="text-[#FFD36A] font-mono text-[11px] px-2 py-0.5 rounded bg-gold/20 border border-gold/35 font-bold">
+                          ₹499 Only
+                        </span>
+                      </div>
+                      <p className="text-amber-100/90 text-[11.5px] mt-0.5">
+                        Strictly 1 Male & 1 Female Entry Only
+                      </p>
                     </motion.div>
                   )}
                 </div>

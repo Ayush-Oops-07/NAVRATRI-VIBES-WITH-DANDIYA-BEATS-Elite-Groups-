@@ -59,11 +59,11 @@ export default function Booking() {
                     👫 Couple Pass
                   </span>
                   <span className="text-[10px] uppercase tracking-wider px-2.5 py-0.5 rounded-full border border-gold/40 text-gold bg-gold/10 font-serif font-bold">
-                    1 Couple
+                    ₹499 Only
                   </span>
                 </div>
-                <p className="text-xs sm:text-sm text-[#FFF8F0] font-semibold">
-                  1 Male & 1 Female
+                <p className="text-xs sm:text-sm text-gold font-bold">
+                  🎟️ ₹499/- (1 Male & 1 Female)
                 </p>
                 <p className="text-[11px] text-[#D8CDE7]/80 mt-1 leading-snug">
                   Strictly valid for 1 Male and 1 Female entry.
