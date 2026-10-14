@@ -1,10 +1,11 @@
-import { useState, useEffect, useCallback, useMemo } from 'react'
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, MessageCircle, ExternalLink, Sparkles, Award } from 'lucide-react'
+import { X, MessageCircle, ExternalLink, Sparkles, Award, ChevronLeft, ChevronRight, Pause, Play, Grid, Eye } from 'lucide-react'
 import { sponsorConfig } from '../config/sponsors'
+import { trackSponsorPartnerClick, trackInstagramClick, trackWhatsAppClick } from '../utils/analytics'
 
 // Helper component for elegant decorative lines with metallic gradients
-const MetallicDivider = ({ type = 'gold', delay = 0.8, isReducedMotion = false }) => {
+const MetallicDivider = ({ type = 'gold', delay = 0.4, isReducedMotion = false }) => {
   const gradientClass = useMemo(() => {
     switch (type) {
       case 'silver':
@@ -44,13 +45,13 @@ const MetallicDivider = ({ type = 'gold', delay = 0.8, isReducedMotion = false }
       <motion.span
         initial={{ scaleX: 0, opacity: 0 }}
         animate={{ scaleX: 1, opacity: 1 }}
-        transition={{ duration: 0.9, delay, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }}
         className={`h-px flex-1 origin-right bg-gradient-to-r ${gradientClass}`}
       />
       <motion.span
         initial={{ scale: 0, opacity: 0, rotate: -45 }}
         animate={{ scale: 1, opacity: 1, rotate: 0 }}
-        transition={{ duration: 0.5, delay: delay + 0.3 }}
+        transition={{ duration: 0.4, delay: delay + 0.2 }}
         className={`${dotColor} text-[9px] sm:text-[11px] shrink-0 drop-shadow-[0_0_6px_currentColor]`}
       >
         ✦
@@ -58,7 +59,7 @@ const MetallicDivider = ({ type = 'gold', delay = 0.8, isReducedMotion = false }
       <motion.span
         initial={{ scaleX: 0, opacity: 0 }}
         animate={{ scaleX: 1, opacity: 1 }}
-        transition={{ duration: 0.9, delay, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }}
         className={`h-px flex-1 origin-left bg-gradient-to-l ${gradientClass}`}
       />
     </div>
@@ -124,8 +125,9 @@ const SponsorCard = ({
   variant = 'gold',
   isCenter = false,
   isCompact = false,
-  delay = 0.5,
+  delay = 0.2,
   isReducedMotion = false,
+  isFeaturedSpotlight = false,
 }) => {
   const [imageError, setImageError] = useState(false)
 
@@ -138,8 +140,8 @@ const SponsorCard = ({
           badgeText: 'text-transparent bg-clip-text bg-gradient-to-r from-slate-200 via-slate-100 to-slate-400',
           titleText: 'text-slate-100 group-hover:text-white',
           taglineText: 'text-slate-300/85',
-          bgGlass: 'bg-gradient-to-b from-white/[0.08] via-[#25103F]/75 to-[#0E081D]/90',
-          auraColor: 'rgba(203,213,225,0.16)',
+          bgGlass: 'bg-gradient-to-b from-white/[0.08] via-[#25103F]/85 to-[#0E081D]/95',
+          auraColor: 'rgba(203,213,225,0.2)',
           ctaBadge: 'bg-[#25103F]/90 text-slate-200 border-slate-400/50 group-hover:border-slate-300',
         }
       case 'bronze':
@@ -149,8 +151,8 @@ const SponsorCard = ({
           badgeText: 'text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-600',
           titleText: 'text-amber-100 group-hover:text-amber-50',
           taglineText: 'text-amber-200/85',
-          bgGlass: 'bg-gradient-to-b from-[#4A154B]/60 via-[#25103F]/80 to-[#0E081D]/90',
-          auraColor: 'rgba(255,138,54,0.22)',
+          bgGlass: 'bg-gradient-to-b from-[#4A154B]/60 via-[#25103F]/85 to-[#0E081D]/95',
+          auraColor: 'rgba(255,138,54,0.25)',
           ctaBadge: 'bg-[#25103F]/90 text-amber-200 border-amber-500/50 group-hover:border-amber-400',
         }
       case 'valuable':
@@ -160,7 +162,7 @@ const SponsorCard = ({
           badgeText: 'text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-gold',
           titleText: 'text-amber-100 group-hover:text-white',
           taglineText: 'text-amber-200/80',
-          bgGlass: 'bg-gradient-to-b from-[#3B1666]/55 via-[#25103F]/75 to-[#0E081D]/90',
+          bgGlass: 'bg-gradient-to-b from-[#3B1666]/55 via-[#25103F]/80 to-[#0E081D]/95',
           auraColor: 'rgba(139,61,206,0.22)',
           ctaBadge: 'bg-[#25103F]/90 text-gold border-gold/45 group-hover:border-gold',
         }
@@ -168,16 +170,25 @@ const SponsorCard = ({
       default:
         return {
           cardBorder: 'border-gold/60 hover:border-gold',
-          cardGlow: 'shadow-[0_0_50px_rgba(255,211,106,0.25)] hover:shadow-[0_0_75px_rgba(255,211,106,0.45)]',
+          cardGlow: 'shadow-[0_0_50px_rgba(255,211,106,0.3)] hover:shadow-[0_0_75px_rgba(255,211,106,0.5)]',
           badgeText: 'text-transparent bg-clip-text bg-gradient-to-r from-[#fff3c4] via-[#f5c04a] to-[#c8791a]',
           titleText: 'gold-text',
           taglineText: 'text-amber-100/90',
-          bgGlass: 'bg-gradient-to-b from-[#FFD36A]/[0.16] via-[#25103F]/80 to-[#0E081D]/90',
-          auraColor: 'rgba(255,211,106,0.3)',
+          bgGlass: 'bg-gradient-to-b from-[#FFD36A]/[0.18] via-[#25103F]/85 to-[#0E081D]/95',
+          auraColor: 'rgba(255,211,106,0.35)',
           ctaBadge: 'bg-[#25103F]/90 text-gold border-gold/60 group-hover:border-gold',
         }
     }
   }, [variant])
+
+  const handleClick = () => {
+    if (sponsor.link) {
+      trackSponsorPartnerClick(sponsor.name, sponsor.category, sponsor.link)
+      if (sponsor.link.includes('instagram.com')) {
+        trackInstagramClick(sponsor.name, sponsor.link)
+      }
+    }
+  }
 
   const CardWrapper = sponsor.link ? motion.a : motion.div
   const linkProps = sponsor.link
@@ -186,42 +197,19 @@ const SponsorCard = ({
         target: '_blank',
         rel: 'noopener noreferrer',
         title: `Visit Partner: ${sponsor.name}`,
+        onClick: handleClick,
       }
     : {}
-
-  // Motion variants
-  const motionProps = isReducedMotion
-    ? {
-        initial: { opacity: 0 },
-        animate: { opacity: 1 },
-        transition: { duration: 0.5, delay },
-      }
-    : {
-        initial: {
-          opacity: 0,
-          y: isCenter ? 25 : 16,
-          scale: isCenter ? 0.93 : 0.96,
-        },
-        animate: {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-        },
-        transition: {
-          duration: isCenter ? 0.85 : 0.75,
-          delay,
-          ease: [0.16, 1, 0.3, 1],
-        },
-      }
 
   return (
     <CardWrapper
       {...linkProps}
-      {...motionProps}
-      whileHover={sponsor.link ? { scale: isCenter ? 1.025 : 1.03, y: -2.5 } : {}}
+      whileHover={sponsor.link ? { scale: isFeaturedSpotlight ? 1.015 : 1.025, y: -2.5 } : {}}
       whileTap={sponsor.link ? { scale: 0.98 } : {}}
       className={`group relative flex flex-col items-center text-center rounded-2xl sm:rounded-3xl border backdrop-blur-xl ${styles.cardBorder} ${styles.bgGlass} ${styles.cardGlow} transition-all duration-300 ${
-        isCenter
+        isFeaturedSpotlight
+          ? 'p-5 sm:p-7 md:p-8 w-full max-w-lg md:max-w-xl shadow-[0_0_60px_rgba(245,192,74,0.35)]'
+          : isCenter
           ? 'p-3.5 sm:p-5 md:p-6 w-full md:max-w-[340px] lg:max-w-[380px] z-20'
           : isCompact
           ? 'p-2.5 sm:p-3 md:p-3.5 w-full z-10'
@@ -243,7 +231,9 @@ const SponsorCard = ({
           className={`inline-block font-serif font-bold tracking-[0.2em] sm:tracking-[0.25em] uppercase ${
             styles.badgeText
           } ${
-            isCenter
+            isFeaturedSpotlight
+              ? 'text-xs sm:text-sm md:text-base'
+              : isCenter
               ? 'text-xs sm:text-sm'
               : isCompact
               ? 'text-[8.5px] sm:text-[9.5px]'
@@ -254,15 +244,17 @@ const SponsorCard = ({
         </span>
         <MetallicDivider
           type={variant === 'valuable' ? 'gold' : variant}
-          delay={delay + 0.15}
+          delay={delay + 0.1}
           isReducedMotion={isReducedMotion}
         />
       </div>
 
       {/* Logo container */}
       <div
-        className={`relative z-10 flex items-center justify-center my-1.5 sm:my-2 w-full ${
-          isCenter
+        className={`relative z-10 flex items-center justify-center my-2 sm:my-3 w-full ${
+          isFeaturedSpotlight
+            ? 'h-24 sm:h-32 md:h-36 max-w-[260px]'
+            : isCenter
             ? 'h-15 sm:h-18 md:h-22 max-w-[210px]'
             : isCompact
             ? 'h-10 sm:h-12 md:h-14 max-w-[135px] sm:max-w-[160px]'
@@ -274,9 +266,9 @@ const SponsorCard = ({
             src={sponsor.logo}
             alt={`${sponsor.name} logo`}
             onError={() => setImageError(true)}
-            className={`max-h-full max-w-full object-contain filter transition-transform duration-300 group-hover:scale-105 ${
-              isCenter
-                ? 'drop-shadow-[0_0_20px_rgba(245,192,74,0.4)]'
+            className={`max-h-full max-w-full object-contain filter transition-transform duration-300 group-hover:scale-105 rounded-xl ${
+              isFeaturedSpotlight || isCenter
+                ? 'drop-shadow-[0_0_24px_rgba(245,192,74,0.45)]'
                 : 'drop-shadow-[0_0_12px_rgba(255,255,255,0.2)]'
             }`}
           />
@@ -284,7 +276,7 @@ const SponsorCard = ({
           <LuxuryLogoEmblem
             name={sponsor.name}
             type={variant === 'valuable' ? 'gold' : variant}
-            isCenter={isCenter}
+            isCenter={isCenter || isFeaturedSpotlight}
           />
         )}
       </div>
@@ -295,7 +287,9 @@ const SponsorCard = ({
           className={`font-display font-black leading-snug tracking-wide transition-colors ${
             styles.titleText
           } ${
-            isCenter
+            isFeaturedSpotlight
+              ? 'text-xl sm:text-2xl md:text-3xl'
+              : isCenter
               ? 'text-base sm:text-lg md:text-xl'
               : isCompact
               ? 'text-xs sm:text-sm'
@@ -307,8 +301,14 @@ const SponsorCard = ({
 
         {sponsor.tagline && (
           <p
-            className={`mt-0.5 font-body font-medium ${styles.taglineText} ${
-              isCenter ? 'text-xs sm:text-sm' : isCompact ? 'text-[9.5px] sm:text-[11px]' : 'text-[10px] sm:text-xs'
+            className={`mt-1 font-body font-medium ${styles.taglineText} ${
+              isFeaturedSpotlight
+                ? 'text-xs sm:text-sm md:text-base'
+                : isCenter
+                ? 'text-xs sm:text-sm'
+                : isCompact
+                ? 'text-[9.5px] sm:text-[11px]'
+                : 'text-[10px] sm:text-xs'
             }`}
           >
             {sponsor.tagline}
@@ -317,12 +317,14 @@ const SponsorCard = ({
 
         {(sponsor.description || sponsor.location) && (
           <p
-            className={`mt-0.5 font-body text-amber-100/70 line-clamp-2 ${
-              isCenter
-                ? 'text-[10.5px] sm:text-xs max-w-[280px]'
+            className={`mt-1.5 font-body text-amber-100/75 ${
+              isFeaturedSpotlight
+                ? 'text-xs sm:text-sm max-w-md'
+                : isCenter
+                ? 'text-[10.5px] sm:text-xs max-w-[280px] line-clamp-2'
                 : isCompact
-                ? 'text-[8.5px] sm:text-[9.5px] max-w-[200px]'
-                : 'text-[9.5px] sm:text-[10.5px] max-w-[240px]'
+                ? 'text-[8.5px] sm:text-[9.5px] max-w-[200px] line-clamp-2'
+                : 'text-[9.5px] sm:text-[10.5px] max-w-[240px] line-clamp-2'
             }`}
           >
             {sponsor.location ? sponsor.location : sponsor.description}
@@ -331,12 +333,12 @@ const SponsorCard = ({
 
         {/* CTA Instagram Link Badge */}
         {sponsor.link && (
-          <div className={`flex items-center justify-center ${isCompact ? 'mt-1.5' : 'mt-2'}`}>
+          <div className={`flex items-center justify-center ${isFeaturedSpotlight ? 'mt-3 sm:mt-4' : isCompact ? 'mt-1.5' : 'mt-2'}`}>
             <span
-              className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[8.5px] sm:text-[9.5px] md:text-xs font-semibold tracking-wider border shadow-md transition-all duration-300 group-hover:scale-105 ${styles.ctaBadge}`}
+              className={`inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-semibold tracking-wider border shadow-md transition-all duration-300 group-hover:scale-105 ${styles.ctaBadge}`}
             >
-              <span>{sponsor.badgeText || 'Visit Partner'}</span>
-              <ExternalLink size={10} aria-hidden="true" />
+              <span>{sponsor.badgeText || 'Visit Official Partner'}</span>
+              <ExternalLink size={12} aria-hidden="true" />
             </span>
           </div>
         )}
@@ -349,7 +351,29 @@ export default function SponsorIntro() {
   const [isVisible, setIsVisible] = useState(true)
   const [isExiting, setIsExiting] = useState(false)
   const [isReducedMotion, setIsReducedMotion] = useState(false)
-  const [timeLeft, setTimeLeft] = useState(sponsorConfig.duration || 15)
+  
+  // View mode: 'spotlight' (sequential 7s per sponsor) or 'grid' (all sponsors at once)
+  const [viewMode, setViewMode] = useState('spotlight')
+  
+  // Timing configuration: exactly 7 seconds per sponsor intro
+  const SPONSOR_DURATION = 7
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [secondsRemaining, setSecondsRemaining] = useState(SPONSOR_DURATION)
+  const [isPaused, setIsPaused] = useState(false)
+  const timerRef = useRef(null)
+
+  const { celebrationPartners = [], valuableSponsors = [], whatsapp } = sponsorConfig
+
+  // All 7 sponsors ordered strategically (Grand Title Partner first, then Celebration Partners, then Valuable Sponsors)
+  const allSponsors = useMemo(() => {
+    const ramjee = celebrationPartners.find((p) => p.id === 'ramjee' || p.isCenter) || celebrationPartners[1]
+    const keshri = celebrationPartners.find((p) => p.id === 'keshri') || celebrationPartners[0]
+    const ganpati = celebrationPartners.find((p) => p.id === 'ganpati') || celebrationPartners[2]
+    return [ramjee, keshri, ganpati, ...valuableSponsors].filter(Boolean)
+  }, [celebrationPartners, valuableSponsors])
+
+  const totalSponsors = allSponsors.length
+  const currentSponsor = allSponsors[currentIndex] || allSponsors[0]
 
   // Check reduced motion preference
   useEffect(() => {
@@ -374,46 +398,75 @@ export default function SponsorIntro() {
     }, 600)
   }, [isExiting])
 
-  // Countdown second-by-second tracker
+  // Next Sponsor in Sequence
+  const nextSponsor = useCallback(() => {
+    setCurrentIndex((prev) => {
+      if (prev + 1 >= totalSponsors) {
+        handleClose()
+        return prev
+      }
+      return prev + 1
+    })
+    setSecondsRemaining(SPONSOR_DURATION)
+  }, [totalSponsors, handleClose, SPONSOR_DURATION])
+
+  // Previous Sponsor in Sequence
+  const prevSponsor = useCallback(() => {
+    setCurrentIndex((prev) => (prev > 0 ? prev - 1 : totalSponsors - 1))
+    setSecondsRemaining(SPONSOR_DURATION)
+  }, [totalSponsors, SPONSOR_DURATION])
+
+  // Direct Sponsor Select
+  const selectSponsor = useCallback((index) => {
+    setCurrentIndex(index)
+    setSecondsRemaining(SPONSOR_DURATION)
+  }, [SPONSOR_DURATION])
+
+  // 7-second countdown timer per sponsor introduction
   useEffect(() => {
+    if (!isVisible || isExiting || isPaused || viewMode !== 'spotlight') return
+
     const interval = setInterval(() => {
-      setTimeLeft((prev) => {
+      setSecondsRemaining((prev) => {
         if (prev <= 1) {
-          clearInterval(interval)
-          handleClose()
-          return 0
+          nextSponsor()
+          return SPONSOR_DURATION
         }
         return prev - 1
       })
     }, 1000)
 
     return () => clearInterval(interval)
-  }, [handleClose])
+  }, [isVisible, isExiting, isPaused, viewMode, nextSponsor, SPONSOR_DURATION])
 
-  // Close on ESC keyboard key
+  // Keyboard navigation (Escape to close, Left/Right arrows to navigate)
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
         handleClose()
+      } else if (e.key === 'ArrowRight') {
+        nextSponsor()
+      } else if (e.key === 'ArrowLeft') {
+        prevSponsor()
       }
     }
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [handleClose])
+  }, [handleClose, nextSponsor, prevSponsor])
 
   if (!isVisible) return null
-
-  const { celebrationPartners = [], valuableSponsors = [], whatsapp } = sponsorConfig
-
-  // Section A: 3 Partners (Ramjee Prasad in the center)
-  const keshriPartner = celebrationPartners.find((p) => p.id === 'keshri') || celebrationPartners[0]
-  const ramjeePartner =
-    celebrationPartners.find((p) => p.id === 'ramjee' || p.isCenter) || celebrationPartners[1]
-  const ganpatiPartner = celebrationPartners.find((p) => p.id === 'ganpati') || celebrationPartners[2]
 
   const whatsappHref = whatsapp?.enabled
     ? `https://wa.me/${whatsapp.number}?text=${encodeURIComponent(whatsapp.message || '')}`
     : null
+
+  const getVariant = (sponsor) => {
+    if (sponsor.id === 'ramjee' || sponsor.isCenter) return 'gold'
+    if (sponsor.id === 'keshri') return 'silver'
+    if (sponsor.id === 'bahu') return 'bronze'
+    if (sponsor.category?.includes('CELEBRATION')) return 'gold'
+    return 'valuable'
+  }
 
   return (
     <AnimatePresence>
@@ -457,192 +510,209 @@ export default function SponsorIntro() {
             />
           )}
 
-          {/* Layer 4: Delicate Background Festive Motifs */}
-          <div
-            className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.06]"
-            aria-hidden="true"
-          >
-            <svg
-              viewBox="0 0 200 200"
-              className="w-[120vw] max-w-[900px] text-gold animate-[spinSlow_140s_linear_infinite]"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth=".5"
-            >
-              {[...Array(16)].map((_, i) => (
-                <ellipse
-                  key={i}
-                  cx="100"
-                  cy="46"
-                  rx="9"
-                  ry="30"
-                  transform={`rotate(${i * 22.5} 100 100)`}
-                />
-              ))}
-              {[94, 72, 46, 22].map((r, i) => (
-                <circle key={r} cx="100" cy="100" r={r} strokeDasharray={i % 2 ? '2 3' : ''} />
-              ))}
-            </svg>
-          </div>
-
-          {/* TOP BAR: Event Badge & Close Button */}
-          <header className="relative z-30 w-full max-w-6xl flex items-center justify-between pt-1">
+          {/* TOP BAR: Header, Timing Badge, View Mode Toggle & Close Button */}
+          <header className="relative z-30 w-full max-w-6xl flex items-center justify-between pt-1 gap-2">
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
               className="flex items-center gap-2"
             >
               <span className="flex h-2 w-2 relative">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-gold" />
               </span>
-              <span className="font-serif tracking-[0.2em] sm:tracking-[0.25em] text-[10px] sm:text-xs text-gold/80 uppercase font-medium">
-                Navratri Vibes 2026 • Official Sponsors & Partners
+              <span className="font-serif tracking-[0.2em] sm:tracking-[0.25em] text-[10px] sm:text-xs text-gold/90 uppercase font-medium">
+                Navratri Vibes 2026 • Official Sponsors Showcase
               </span>
             </motion.div>
 
-            {/* Close Button */}
-            <motion.button
-              onClick={handleClose}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              whileHover={{ scale: 1.1, backgroundColor: 'rgba(245,192,74,0.18)' }}
-              whileTap={{ scale: 0.95 }}
-              aria-label="Close sponsor intro"
-              className="relative flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full glass border border-gold/35 text-gold/80 hover:text-gold hover:border-gold shadow-[0_0_20px_rgba(0,0,0,0.5)] transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-gold/50"
-            >
-              <X size={17} aria-hidden="true" />
-            </motion.button>
+            {/* Controls: Mode Toggle & Close Button */}
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setViewMode((m) => (m === 'spotlight' ? 'grid' : 'spotlight'))}
+                title={viewMode === 'spotlight' ? 'View All Sponsors' : 'Back to 7s Intro'}
+                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full glass border border-gold/40 text-gold text-xs font-serif hover:bg-gold/15 transition-all"
+              >
+                {viewMode === 'spotlight' ? (
+                  <>
+                    <Grid size={13} />
+                    <span>View All</span>
+                  </>
+                ) : (
+                  <>
+                    <Eye size={13} />
+                    <span>Spotlight (7s)</span>
+                  </>
+                )}
+              </button>
+
+              {/* Close Button */}
+              <motion.button
+                onClick={handleClose}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                whileHover={{ scale: 1.1, backgroundColor: 'rgba(245,192,74,0.18)' }}
+                whileTap={{ scale: 0.95 }}
+                aria-label="Close sponsor intro"
+                className="relative flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full glass border border-gold/35 text-gold/80 hover:text-gold hover:border-gold shadow-[0_0_20px_rgba(0,0,0,0.5)] transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-gold/50"
+              >
+                <X size={17} aria-hidden="true" />
+              </motion.button>
+            </div>
           </header>
 
-          {/* CENTER: Main Sponsors Composition */}
-          <main className="relative z-20 w-full max-w-6xl my-auto py-2 sm:py-3 flex flex-col items-center">
-            {/* Header / Subtitle */}
+          {/* MAIN CONTENT AREA */}
+          <main
+            className="relative z-20 w-full max-w-6xl my-auto py-2 sm:py-3 flex flex-col items-center"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
+            {/* Header Badge */}
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="text-center mb-2 sm:mb-4"
+              transition={{ duration: 0.6 }}
+              className="text-center mb-3 sm:mb-4"
             >
               <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full glass border border-gold/30 text-gold text-[10px] sm:text-xs tracking-[0.2em] mb-1 shadow-[0_0_15px_rgba(245,192,74,0.15)]">
                 <Sparkles size={11} className="text-gold animate-pulse" />
-                <span>OFFICIAL FESTIVAL SPONSORSHIP</span>
+                <span>OFFICIAL FESTIVAL SPONSORS & PARTNERS</span>
               </div>
               <h2 className="font-display font-black text-xl sm:text-2xl md:text-3xl gold-text tracking-wide drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)]">
-                OUR CELEBRATION PARTNERS
+                {viewMode === 'spotlight' ? 'PROUD CELEBRATION SPONSORS' : 'ALL CELEBRATION PARTNERS & SPONSORS'}
               </h2>
             </motion.div>
 
-            {/* SECTION A: 3 Partners (Desktop: 1 row, Center: Ramjee Prasad) */}
-            <div className="w-full max-w-5xl">
-              {/* DESKTOP (md and above) */}
-              <div className="hidden md:flex items-center justify-center gap-3 lg:gap-5 w-full">
-                {/* 1. Left Partner: Keshri Collection */}
-                <div className="flex-1 flex justify-end">
-                  <SponsorCard
-                    sponsor={keshriPartner}
-                    variant="silver"
-                    isCenter={false}
-                    delay={0.5}
-                    isReducedMotion={isReducedMotion}
-                  />
+            {/* VIEW 1: SEQUENTIAL 7-SECOND SPOTLIGHT PRESENTATION */}
+            {viewMode === 'spotlight' && (
+              <div className="w-full flex flex-col items-center">
+                {/* Active Sponsor Presentation Carousel */}
+                <div className="relative w-full max-w-xl flex items-center justify-center px-1 sm:px-4">
+                  {/* Previous Button */}
+                  <button
+                    type="button"
+                    onClick={prevSponsor}
+                    aria-label="Previous sponsor"
+                    className="absolute -left-2 sm:-left-6 md:-left-12 z-30 w-9 h-9 sm:w-11 sm:h-11 rounded-full glass border border-gold/40 text-gold hover:text-white hover:border-gold hover:scale-110 active:scale-95 transition-all flex items-center justify-center shadow-lg focus:outline-none"
+                  >
+                    <ChevronLeft size={22} />
+                  </button>
+
+                  {/* Active Featured Sponsor Card with Framer Motion AnimatePresence */}
+                  <div className="w-full flex justify-center min-h-[380px] sm:min-h-[420px]">
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={currentSponsor.id || currentSponsor.name}
+                        initial={{ opacity: 0, scale: 0.94, y: 14 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.96, y: -14 }}
+                        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                        className="w-full flex justify-center"
+                      >
+                        <SponsorCard
+                          sponsor={currentSponsor}
+                          variant={getVariant(currentSponsor)}
+                          isCenter={true}
+                          isFeaturedSpotlight={true}
+                          isReducedMotion={isReducedMotion}
+                        />
+                      </motion.div>
+                    </AnimatePresence>
+                  </div>
+
+                  {/* Next Button */}
+                  <button
+                    type="button"
+                    onClick={nextSponsor}
+                    aria-label="Next sponsor"
+                    className="absolute -right-2 sm:-right-6 md:-right-12 z-30 w-9 h-9 sm:w-11 sm:h-11 rounded-full glass border border-gold/40 text-gold hover:text-white hover:border-gold hover:scale-110 active:scale-95 transition-all flex items-center justify-center shadow-lg focus:outline-none"
+                  >
+                    <ChevronRight size={22} />
+                  </button>
                 </div>
 
-                {/* 2. Center Partner: Ramjee Prasad (Primary / Most Prominent) */}
-                <div className="flex-initial flex justify-center">
-                  <SponsorCard
-                    sponsor={ramjeePartner}
-                    variant="gold"
-                    isCenter={true}
-                    delay={0.3}
-                    isReducedMotion={isReducedMotion}
-                  />
-                </div>
+                {/* 7-Second Live Indicator & Step Tracker */}
+                <div className="w-full max-w-md mt-4 flex flex-col items-center gap-2">
+                  {/* Step Pills / Dots */}
+                  <div className="flex items-center gap-1.5 sm:gap-2">
+                    {allSponsors.map((sp, idx) => {
+                      const isActive = idx === currentIndex
+                      return (
+                        <button
+                          key={sp.id || sp.name}
+                          type="button"
+                          onClick={() => selectSponsor(idx)}
+                          title={`Show ${sp.name}`}
+                          className={`h-2 sm:h-2.5 rounded-full transition-all duration-300 focus:outline-none ${
+                            isActive
+                              ? 'w-8 sm:w-10 bg-gradient-to-r from-gold via-amber-300 to-pink shadow-[0_0_12px_rgba(245,192,74,0.6)]'
+                              : 'w-2 sm:w-2.5 bg-white/25 hover:bg-white/50'
+                          }`}
+                          aria-label={`Go to sponsor ${idx + 1}: ${sp.name}`}
+                        />
+                      )
+                    })}
+                  </div>
 
-                {/* 3. Right Partner: Ganpati Traders */}
-                <div className="flex-1 flex justify-start">
-                  <SponsorCard
-                    sponsor={ganpatiPartner}
-                    variant="gold"
-                    isCenter={false}
-                    delay={0.6}
-                    isReducedMotion={isReducedMotion}
-                  />
+                  {/* 7-Second Countdown Tracker */}
+                  <div className="flex items-center gap-2 text-xs text-amber-200/90 font-serif">
+                    <button
+                      type="button"
+                      onClick={() => setIsPaused((p) => !p)}
+                      className="inline-flex items-center gap-1 text-[11px] text-gold/80 hover:text-gold"
+                    >
+                      {isPaused ? <Play size={11} /> : <Pause size={11} />}
+                      <span>{isPaused ? 'Paused' : 'Auto'}</span>
+                    </button>
+                    <span>•</span>
+                    <span>
+                      Sponsor <strong className="text-gold font-bold">{currentIndex + 1}</strong> of{' '}
+                      <strong>{totalSponsors}</strong>
+                    </span>
+                    <span>•</span>
+                    <span>
+                      Next in <strong className="text-gold font-bold">{secondsRemaining}s</strong>
+                    </span>
+                  </div>
                 </div>
               </div>
+            )}
 
-              {/* MOBILE & TABLET (below md) */}
-              <div className="flex md:hidden flex-col items-center gap-2.5 w-full max-w-lg mx-auto">
-                {/* Primary Partner on top */}
-                <SponsorCard
-                  sponsor={ramjeePartner}
-                  variant="gold"
-                  isCenter={true}
-                  delay={0.3}
-                  isReducedMotion={isReducedMotion}
-                />
-                {/* Other two side-by-side */}
-                <div className="grid grid-cols-2 gap-2.5 w-full">
-                  <SponsorCard
-                    sponsor={keshriPartner}
-                    variant="silver"
-                    isCenter={false}
-                    delay={0.5}
-                    isReducedMotion={isReducedMotion}
-                  />
-                  <SponsorCard
-                    sponsor={ganpatiPartner}
-                    variant="gold"
-                    isCenter={false}
-                    delay={0.6}
-                    isReducedMotion={isReducedMotion}
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* SUBTLE GOLDEN DIVIDER */}
-            <motion.div
-              initial={{ opacity: 0, scaleX: 0 }}
-              animate={{ opacity: 1, scaleX: 1 }}
-              transition={{ duration: 0.8, delay: 0.7 }}
-              className="relative w-full max-w-4xl my-3 sm:my-4 flex items-center justify-center"
-              aria-hidden="true"
-            >
-              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
-              <div className="mx-2.5 px-3 py-0.5 rounded-full glass border border-gold/30 bg-[#25103F]/90 shadow-[0_0_15px_rgba(255,211,106,0.18)] flex items-center gap-1.5">
-                <Sparkles size={11} className="text-gold" />
-                <span className="font-serif text-[9.5px] sm:text-[11px] tracking-[0.25em] text-gold uppercase font-bold">
-                  OUR VALUABLE SPONSORS
-                </span>
-                <Sparkles size={11} className="text-gold" />
-              </div>
-              <div className="h-px flex-1 bg-gradient-to-l from-transparent via-gold/40 to-transparent" />
-            </motion.div>
-
-            {/* SECTION B: 4 Valuable Sponsors (Desktop: 1 row of 4 cards, Mobile: 2x2 grid) */}
-            <div className="w-full max-w-5xl">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 w-full">
-                {valuableSponsors.map((sponsor, index) => {
-                  const variant = sponsor.id === 'bahu' ? 'bronze' : 'valuable'
-                  return (
+            {/* VIEW 2: FULL GRID OF ALL SPONSORS (Accessible & Complete) */}
+            {viewMode === 'grid' && (
+              <div className="w-full max-w-5xl">
+                {/* Celebration Partners Row */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+                  {celebrationPartners.map((sponsor) => (
                     <SponsorCard
                       key={sponsor.id || sponsor.name}
                       sponsor={sponsor}
-                      variant={variant}
-                      isCenter={false}
-                      isCompact={true}
-                      delay={0.8 + index * 0.1}
+                      variant={getVariant(sponsor)}
+                      isCenter={sponsor.isCenter}
                       isReducedMotion={isReducedMotion}
                     />
-                  )
-                })}
+                  ))}
+                </div>
+
+                {/* Valuable Sponsors Grid */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3">
+                  {valuableSponsors.map((sponsor) => (
+                    <SponsorCard
+                      key={sponsor.id || sponsor.name}
+                      sponsor={sponsor}
+                      variant={getVariant(sponsor)}
+                      isCompact={true}
+                      isReducedMotion={isReducedMotion}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
           </main>
 
-          {/* BOTTOM BAR: WhatsApp & Auto-enter Countdown info */}
+          {/* BOTTOM BAR: WhatsApp Sponsorship & Skip Button */}
           <footer className="relative z-30 w-full max-w-4xl flex flex-col sm:flex-row items-center justify-between gap-2.5 pt-2 pb-1 border-t border-gold/15">
             {/* WhatsApp Sponsorship Action */}
             {whatsappHref ? (
@@ -650,9 +720,7 @@ export default function SponsorIntro() {
                 href={whatsappHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 1.2 }}
+                onClick={() => trackWhatsAppClick('sponsor_intro')}
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.96 }}
                 className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full glass border border-emerald-500/50 hover:border-emerald-400 bg-emerald-950/40 hover:bg-emerald-900/50 text-emerald-300 text-xs font-semibold tracking-wide shadow-[0_0_20px_rgba(16,185,129,0.2)] transition-all"
@@ -664,34 +732,32 @@ export default function SponsorIntro() {
               <div />
             )}
 
-            {/* Skip / Enter prompt with live timer */}
+            {/* Skip / Enter prompt */}
             <motion.button
               onClick={handleClose}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 1.3 }}
-              className="text-[11px] sm:text-xs text-amber-100/70 hover:text-gold transition-colors font-serif tracking-wider flex items-center gap-1.5 focus:outline-none cursor-pointer"
+              className="text-[11px] sm:text-xs text-amber-100/80 hover:text-gold transition-colors font-serif tracking-wider flex items-center gap-1.5 focus:outline-none cursor-pointer"
             >
-              <span>
-                Entering event in <strong className="text-gold font-bold">{timeLeft}s</strong>
-              </span>
+              <span>Explore Website Directly</span>
               <span className="text-gold font-bold">›</span>
               <span className="underline ml-1">Skip Intro</span>
             </motion.button>
           </footer>
 
-          {/* Bottom Countdown Hairline Progress Bar */}
-          {!isReducedMotion && (
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{
-                duration: sponsorConfig.duration || 15,
-                ease: 'linear',
-              }}
-              className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-[#8B3DCE] via-[#FFD36A] to-[#8B3DCE] origin-left pointer-events-none opacity-80"
-              aria-hidden="true"
-            />
+          {/* Bottom Hairline 7-Second Progress Bar (Per Sponsor) */}
+          {!isReducedMotion && viewMode === 'spotlight' && (
+            <div className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-white/10 pointer-events-none">
+              <motion.div
+                key={`${currentIndex}-${isPaused}`}
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: isPaused ? undefined : 1 }}
+                transition={{
+                  duration: SPONSOR_DURATION,
+                  ease: 'linear',
+                }}
+                className="h-full bg-gradient-to-r from-[#8B3DCE] via-[#FFD36A] to-[#FF4F9A] origin-left pointer-events-none opacity-90"
+                aria-hidden="true"
+              />
+            </div>
           )}
         </motion.div>
       )}

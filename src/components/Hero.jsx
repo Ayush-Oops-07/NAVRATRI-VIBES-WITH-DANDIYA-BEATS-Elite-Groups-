@@ -3,9 +3,19 @@ import { CalendarDays, Clock, MapPin, MessageCircle, Ticket, Sparkles, ChevronDo
 import { Btn, Particles, FestiveBunting } from './ui'
 import { ENQUIRE_LINK, ADDRESS, MAP_LINK } from '../constants'
 import { useBooking } from '../context/BookingContext'
+import {
+  trackTicketSectionView,
+  trackWhatsAppClick,
+  trackGoogleMapsClick,
+} from '../utils/analytics'
 
 export default function Hero() {
   const { openBooking } = useBooking()
+
+  const handleBookingClick = () => {
+    trackTicketSectionView('hero_primary_cta')
+    openBooking()
+  }
 
   return (
     <section
@@ -38,6 +48,29 @@ export default function Hero() {
       <div className="relative z-10 max-w-7xl mx-auto w-full grid lg:grid-cols-12 gap-10 lg:gap-8 items-center pt-6 sm:pt-8">
         {/* LEFT COLUMN: Event Branding, Venue, Timing, CTAs */}
         <div className="lg:col-span-7 text-center lg:text-left flex flex-col items-center lg:items-start">
+          
+          {/* 🎟️ COMPACT FESTIVE ANNOUNCEMENT BANNER */}
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1, duration: 0.5 }}
+            className="w-full max-w-xl mb-4 px-3.5 py-1.5 rounded-full glass border border-gold/45 bg-gradient-to-r from-wine/80 via-[#25103F]/90 to-wine/80 shadow-[0_0_20px_rgba(255,211,106,0.22)] flex items-center justify-between gap-2 text-xs text-amber-100"
+          >
+            <div className="flex items-center gap-2 overflow-hidden text-left">
+              <span className="shrink-0 animate-pulse text-sm">🎟️</span>
+              <span className="truncate font-serif text-[11px] sm:text-xs">
+                <strong>Passes Available Now:</strong> Collect at all celebration partners, sponsors & 3 pickup counters in Motihari!
+              </span>
+            </div>
+            <a
+              href="#enquiry"
+              className="shrink-0 text-[10px] sm:text-[11px] font-bold text-gold hover:text-white underline uppercase tracking-wider flex items-center gap-1"
+            >
+              <span>View Counters</span>
+              <span>→</span>
+            </a>
+          </motion.div>
+
           {/* Organizer / Event Badge */}
           <motion.div
             initial={{ opacity: 0, y: -16 }}
@@ -50,11 +83,14 @@ export default function Hero() {
               ELITES GROUP PRESENTS
             </span>
             <span className="text-gold/40">•</span>
-            <span className="text-[#FFF8F0] hidden sm:inline">DANDIYA NIGHT 2026</span>
+            <span className="text-[#FFF8F0] hidden sm:inline">BEST DANDIYA NIGHT IN MOTIHARI</span>
           </motion.div>
 
-          {/* Main Event Heading */}
-          <h1 className="w-full tracking-tight">
+          {/* Main Event Heading (H1 for SEO) */}
+          <h1
+            className="w-full tracking-tight"
+            aria-label="Best Dandiya Night in Motihari — Elites Group Navratri Vibes with Dandiya Beats 2026"
+          >
             <motion.span
               initial={{ opacity: 0, y: 30, filter: 'blur(8px)' }}
               animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
@@ -84,6 +120,15 @@ export default function Hero() {
               className="block font-display font-black text-[#FFF8F0] text-3xl sm:text-5xl lg:text-6xl xl:text-7xl leading-[1.1] drop-shadow-[0_0_30px_rgba(255,79,154,0.5)]"
             >
               DANDIYA BEATS <span className="gold-text">2026</span>
+            </motion.span>
+
+            <motion.span
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.7, duration: 0.6 }}
+              className="block mt-1 font-serif text-xs sm:text-sm text-gold/90 tracking-widest uppercase font-semibold"
+            >
+              Best Dandiya Night in Motihari • Elites Group
             </motion.span>
           </h1>
 
@@ -119,6 +164,7 @@ export default function Hero() {
               href={MAP_LINK}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackGoogleMapsClick('Hero Venue Link', MAP_LINK)}
               className="glass rounded-full px-4 py-2 flex items-center gap-2 text-xs sm:text-sm font-medium text-[#D8CDE7] hover:text-gold border border-gold/25 hover:border-gold transition-colors"
             >
               <MapPin size={16} className="text-amber shrink-0 animate-pulse" aria-hidden="true" />
@@ -134,7 +180,7 @@ export default function Hero() {
             className="mt-8 flex flex-col sm:flex-row gap-4 w-full sm:w-auto items-stretch sm:items-center"
           >
             <Btn
-              onClick={openBooking}
+              onClick={handleBookingClick}
               icon={Ticket}
               className="text-base sm:text-lg !py-4 sm:!px-8 shadow-[0_0_30px_rgba(255,211,106,0.5)] cursor-pointer"
             >
@@ -143,6 +189,9 @@ export default function Hero() {
 
             <Btn
               href={ENQUIRE_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackWhatsAppClick('hero_cta')}
               variant="glass"
               icon={MessageCircle}
               className="text-base sm:text-lg !py-4 sm:!px-7 border-pink/40 hover:border-pink text-[#FFF8F0] hover:text-gold shadow-md"

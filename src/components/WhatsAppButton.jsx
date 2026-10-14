@@ -2,10 +2,17 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { MessageCircle } from 'lucide-react'
 import { useBooking } from '../context/BookingContext'
+import { trackWhatsAppClick, trackTicketSectionView } from '../utils/analytics'
 
 export default function WhatsAppButton() {
   const [tip, setTip] = useState(false)
   const { openBooking } = useBooking()
+
+  const handleClick = () => {
+    trackWhatsAppClick('floating_button')
+    trackTicketSectionView('floating_button')
+    openBooking()
+  }
 
   return (
     <div className="fixed right-4 sm:right-6 bottom-4 sm:bottom-6 z-40 flex items-center gap-2.5">
@@ -18,7 +25,7 @@ export default function WhatsAppButton() {
       </motion.span>
       <button
         type="button"
-        onClick={openBooking}
+        onClick={handleClick}
         aria-label="Book your pass on WhatsApp"
         title="Book Your Pass"
         onMouseEnter={() => setTip(true)}

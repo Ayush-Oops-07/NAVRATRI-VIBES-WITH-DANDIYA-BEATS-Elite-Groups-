@@ -16,11 +16,18 @@ import WhatsAppButton from './components/WhatsAppButton'
 import AkaAiFloating from './components/AkaAiFloating'
 import SponsorIntro from './components/SponsorIntro'
 import BookingModal from './components/BookingModal'
+import { useEffect } from 'react'
 import { BookingProvider } from './context/BookingContext'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/react'
+import { initGA, trackPageView } from './utils/analytics'
 
 export default function App() {
+  useEffect(() => {
+    initGA()
+    trackPageView()
+  }, [])
+
   return (
     <BookingProvider>
       <Analytics />

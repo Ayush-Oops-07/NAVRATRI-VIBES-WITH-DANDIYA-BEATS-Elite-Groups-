@@ -4,6 +4,11 @@ import { X, CheckCircle2, MessageCircle, Ticket, MapPin, Plus, Minus, User, Phon
 import { useBooking } from '../context/BookingContext'
 import { LOCATIONS } from '../config/locations'
 import { Btn, Diya } from './ui'
+import {
+  trackTicketLocationClick,
+  trackGoogleMapsClick,
+  trackWhatsAppClick,
+} from '../utils/analytics'
 
 export default function BookingModal() {
   const { isOpen, closeBooking } = useBooking()
@@ -122,6 +127,14 @@ export default function BookingModal() {
     setSubmittedLocation(selectedLoc)
     setSubmitted(true)
 
+    // Track analytics event
+    trackWhatsAppClick('booking_modal', {
+      location_name: selectedLoc.name,
+      location_id: selectedLoc.id,
+      pass_type: passType,
+      passes_count: passes,
+    })
+
     // Open WhatsApp in a new tab
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer')
   }
@@ -145,6 +158,10 @@ export default function BookingModal() {
 
   const handleLocationSelect = (id) => {
     setSelectedLocationId(id)
+    const loc = LOCATIONS.find((l) => l.id === id)
+    if (loc) {
+      trackTicketLocationClick(loc.name, loc.id)
+    }
     if (errors.location) {
       setErrors((prev) => ({ ...prev, location: undefined }))
     }
@@ -606,7 +623,10 @@ export default function BookingModal() {
                                 href={loc.mapUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                onClick={(e) => e.stopPropagation()}
+                                onClick={(e) => {
+                                  e.stopPropagation()
+                                  trackGoogleMapsClick(loc.name, loc.mapUrl)
+                                }}
                                 className="inline-flex items-center gap-1 text-[11px] text-amber-300 hover:text-gold hover:underline mt-1 font-serif"
                               >
                                 View on Google Maps ↗

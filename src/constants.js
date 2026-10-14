@@ -19,8 +19,9 @@ export const HIRA_JACK_WEBSITE = 'https://hirajackphotography.com/'
 export const SHIVANI_SOUND_LINK = 'https://www.instagram.com/dandiya_beatss/' // Example link, update as needed
 export const SHADIS_DOT_COM_LINK = 'https://www.instagram.com/dandiya_beatss/' // Example link, update as needed
 
-// Official Sponsors Instagram Links
+// Official Sponsors & Partners Instagram Links
 export const RAMJEE_PRASAD_INSTAGRAM = 'https://www.instagram.com/ramjee_prasad_1952?stkn=ZWR6Z29sZDFuYWFn'
 export const BAHU_BEGAM_INSTAGRAM = 'https://www.instagram.com/bahubegam.17?stkn=MXhmdmNxc3Rja2Jp'
 export const KESHRI_COLLECTION_INSTAGRAM = 'https://www.instagram.com/keshricollection?cplk=MXU2cGlta3gwaXd6dQ%3D%3D#'
+export const ASHOKA_DRESSES_INSTAGRAM = 'https://www.instagram.com/newashokadresses?cplk=MTVvN2tibm55Mmg1dg=='
 

@@ -1,6 +1,7 @@
 import { Navigation, MapPin, Clock, CalendarDays, Sparkles } from 'lucide-react'
 import { Btn, Reveal, Title } from './ui'
 import { MAP_EMBED, MAP_LINK, ADDRESS } from '../constants'
+import { trackGoogleMapsClick } from '../utils/analytics'
 
 export default function Venue() {
   return (
@@ -46,7 +47,14 @@ export default function Venue() {
               </div>
 
               <div className="mt-8 pt-6 border-t border-gold/20">
-                <Btn href={MAP_LINK} icon={Navigation} className="w-full sm:w-auto">
+                <Btn
+                  href={MAP_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackGoogleMapsClick('Ram Bhawan Ram Resort', MAP_LINK)}
+                  icon={Navigation}
+                  className="w-full sm:w-auto"
+                >
                   Get Directions
                 </Btn>
               </div>

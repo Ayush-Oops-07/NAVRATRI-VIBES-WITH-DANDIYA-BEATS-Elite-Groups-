@@ -1,10 +1,13 @@
 import { Reveal } from './ui'
+import { Instagram } from 'lucide-react'
 import {
   ARYAN_KALWAR_LINK,
   UJWAL_JAISWAL_LINK,
   SHRESHTH_JAISWAL_LINK,
   NEHA_HOSIERY_LINK,
+  ASHOKA_DRESSES_INSTAGRAM,
 } from '../constants'
+import { trackInstagramClick } from '../utils/analytics'
 
 // Core Organising Committee (Top Row: Ujjawal Jaiswal -> Aryan Kalwar -> Shreshth Jaiswal)
 const organisers = [
@@ -40,16 +43,18 @@ const partners = [
     photo: '',
   },
   {
-    name: 'New Ashoka Dresses',
-    desc: "Men's, Kids & Ladies Wear, Main Road",
-    link: '',
-    photo: '',
+    name: 'Ashoka Dresses',
+    desc: "Men's, Kids & Ladies Wear, Main Road Motihari",
+    link: ASHOKA_DRESSES_INSTAGRAM,
+    photo: '/team_members/ashoka%20dresres.jpg',
+    alt: 'Ashoka Dresses - Celebration Partner Motihari',
   },
   {
     name: 'Neha Hosiery',
     desc: 'Neha Apparels, Main Road Motihari',
     link: NEHA_HOSIERY_LINK,
     photo: '/team_members/neha.jpg',
+    alt: 'Neha Hosiery - Celebration Partner Motihari',
   },
   {
     name: 'Pramod Medical',
@@ -169,16 +174,16 @@ export default function Organisers() {
               const CardContent = (
                 <div className="glass-card rounded-2xl p-5 text-center h-full border border-gold/25 hover:border-gold/60 transition-all duration-300 hover:scale-[1.02] cursor-default flex flex-col items-center justify-between shadow-lg group">
                   <div className="w-full flex flex-col items-center">
-                    {/* Emblem / Logo */}
+                    {/* Emblem / Logo with exact aspect ratio */}
                     <div
-                      className="mx-auto h-14 w-14 sm:h-16 sm:w-16 rounded-full border border-gold/60 overflow-hidden flex items-center justify-center font-display font-black text-gold text-base shadow-[0_0_15px_rgba(255,211,106,0.2)] bg-[#25103F] group-hover:scale-105 transition-transform duration-300"
+                      className="mx-auto h-16 w-16 sm:h-20 sm:w-20 rounded-2xl border border-gold/60 p-1.5 overflow-hidden flex items-center justify-center font-display font-black text-gold text-base shadow-[0_0_18px_rgba(255,211,106,0.25)] bg-[#25103F] group-hover:scale-105 transition-transform duration-300"
                       aria-hidden="true"
                     >
                       {partner.photo ? (
                         <img
                           src={partner.photo}
-                          alt={`${partner.name} logo`}
-                          className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-300"
+                          alt={partner.alt || `${partner.name} logo`}
+                          className="h-full w-full object-contain filter group-hover:scale-105 transition-transform duration-300"
                           onError={(e) => {
                             e.target.style.display = 'none'
                           }}
@@ -198,15 +203,16 @@ export default function Organisers() {
                       {partner.name}
                     </h4>
                     {partner.desc && (
-                      <p className="text-xs text-amber-100/60 mt-1 leading-relaxed">
+                      <p className="text-xs text-amber-100/70 mt-1 leading-relaxed">
                         {partner.desc}
                       </p>
                     )}
                   </div>
 
                   {partner.link && (
-                    <span className="inline-block mt-3 text-[11px] text-gold/90 group-hover:text-gold underline font-serif font-medium">
-                      Instagram →
+                    <span className="inline-flex items-center gap-1.5 mt-3.5 px-3 py-1 rounded-full text-xs text-gold group-hover:text-amber-100 border border-gold/40 glass font-serif font-medium shadow-sm transition-all group-hover:border-gold">
+                      <Instagram size={13} className="text-[#FF4F9A] shrink-0" aria-hidden="true" />
+                      <span>Instagram</span>
                     </span>
                   )}
                 </div>
@@ -219,7 +225,9 @@ export default function Organisers() {
                       href={partner.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="block h-full group"
+                      aria-label={`Visit ${partner.name} on Instagram`}
+                      onClick={() => trackInstagramClick(partner.name, partner.link)}
+                      className="block h-full group focus:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-2xl"
                     >
                       {CardContent}
                     </a>

@@ -11,8 +11,10 @@ import {
 const PHONE = '917295049990'
 
 export const sponsorConfig = {
-  // Total duration in seconds for intro popup
-  duration: 15,
+  // Display duration for each individual sponsor introduction (7 seconds per sponsor)
+  duration: 7,
+  sponsorDuration: 7,
+  autoplayInterval: 7000,
 
   // WhatsApp Enquiry details
   whatsapp: {

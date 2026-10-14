@@ -6,6 +6,7 @@ import {
   SHIVANI_SOUND_LINK,
   SHADIS_DOT_COM_LINK,
 } from '../constants'
+import { trackSponsorPartnerClick, trackInstagramClick } from '../utils/analytics'
 
 const partners = [
   {
@@ -115,6 +116,12 @@ export default function EventPartners() {
                   <div className="mt-6 pt-4 border-t border-gold/20 flex flex-wrap items-center justify-center gap-2 sm:gap-3">
                     {partner.links.map((link) => {
                       const LinkIcon = link.icon
+                      const handlePartnerClick = () => {
+                        trackSponsorPartnerClick(partner.name, partner.category, link.url)
+                        if (link.url.includes('instagram.com')) {
+                          trackInstagramClick(partner.name, link.url)
+                        }
+                      }
                       if (link.primary) {
                         return (
                           <a
@@ -122,6 +129,7 @@ export default function EventPartners() {
                             href={link.url}
                             target="_blank"
                             rel="noopener noreferrer"
+                            onClick={handlePartnerClick}
                             className="inline-flex items-center gap-1.5 text-xs font-semibold text-wine bg-gradient-to-r from-[#ffe08a] via-gold to-[#c8791a] hover:opacity-95 px-4 py-2 rounded-full transition-all shadow-[0_0_15px_rgba(245,192,74,0.35)]"
                           >
                             <LinkIcon size={14} />
@@ -135,6 +143,7 @@ export default function EventPartners() {
                           href={link.url}
                           target="_blank"
                           rel="noopener noreferrer"
+                          onClick={handlePartnerClick}
                           className="inline-flex items-center gap-1.5 text-xs font-semibold text-gold hover:text-white glass hover:bg-white/10 px-4 py-2 rounded-full transition-all border border-gold/50"
                         >
                           <LinkIcon size={14} />

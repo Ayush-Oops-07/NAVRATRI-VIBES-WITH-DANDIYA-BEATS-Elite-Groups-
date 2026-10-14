@@ -16,5 +16,12 @@ export const LOCATIONS = [
     mapEmbed: 'https://maps.google.com/maps?q=26.62685,84.91701&hl=en&z=16&output=embed',
     whatsapp: '917295049990',
   },
+  {
+    id: 'vikash-medical-store',
+    name: 'Vikash Medical Store',
+    address: 'In Front of Pramod Medical, Sangeet Cinema Gate, Chhatauni Chowk, Motihari, Bihar.',
+    mapUrl: 'https://maps.app.goo.gl/TifJGKagGmNaLnnD9?g_st=aw',
+    mapEmbed: 'https://maps.google.com/maps?q=In+Front+of+Pramod+Medical,+Sangeet+Cinema+Gate,+Chhatauni+Chowk,+Motihari,+Bihar&hl=en&z=16&output=embed',
+    whatsapp: '917295049990',
+  },
 ]
-
