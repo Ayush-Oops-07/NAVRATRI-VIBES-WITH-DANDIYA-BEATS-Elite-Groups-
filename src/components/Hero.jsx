@@ -47,27 +47,26 @@ export default function Hero() {
       {/* Main Container: 2-Column Festival Composition */}
       <div className="relative z-10 max-w-7xl mx-auto w-full grid lg:grid-cols-12 gap-10 lg:gap-8 items-center pt-6 sm:pt-8">
         {/* LEFT COLUMN: Event Branding, Venue, Timing, CTAs */}
-        <div className="lg:col-span-7 text-center lg:text-left flex flex-col items-center lg:items-start">
+        <div className="lg:col-span-7 text-center lg:text-left flex flex-col items-center lg:items-start w-full max-w-full overflow-hidden">
           
           {/* 🎟️ COMPACT FESTIVE ANNOUNCEMENT BANNER */}
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.5 }}
-            className="w-full max-w-xl mb-4 px-3.5 py-1.5 rounded-full glass border border-gold/45 bg-gradient-to-r from-wine/80 via-[#25103F]/90 to-wine/80 shadow-[0_0_20px_rgba(255,211,106,0.22)] flex items-center justify-between gap-2 text-xs text-amber-100"
+            className="w-full max-w-xl mb-4 p-2 sm:px-4 sm:py-2 rounded-2xl sm:rounded-full glass border border-gold/45 bg-gradient-to-r from-wine/90 via-[#25103F]/90 to-wine/90 shadow-[0_0_20px_rgba(255,211,106,0.22)] flex flex-col sm:flex-row items-center sm:justify-between gap-1.5 sm:gap-3 text-xs text-amber-100 text-center sm:text-left"
           >
-            <div className="flex items-center gap-2 overflow-hidden text-left">
-              <span className="shrink-0 animate-pulse text-sm">🎟️</span>
-              <span className="truncate font-serif text-[11px] sm:text-xs">
-                <strong>Passes Available Now:</strong> Collect at all celebration partners, sponsors & 3 pickup counters in Motihari!
+            <div className="flex items-center gap-1.5 text-center sm:text-left">
+              <span className="shrink-0 text-sm">🎟️</span>
+              <span className="font-serif text-[11px] sm:text-xs leading-snug">
+                <strong>Passes Available Now:</strong> Collect at all partners, sponsors & 3 pickup counters!
               </span>
             </div>
             <a
               href="#enquiry"
-              className="shrink-0 text-[10px] sm:text-[11px] font-bold text-gold hover:text-white underline uppercase tracking-wider flex items-center gap-1"
+              className="shrink-0 text-[10px] sm:text-[11px] font-bold text-gold hover:text-white underline uppercase tracking-wider py-0.5"
             >
-              <span>View Counters</span>
-              <span>→</span>
+              View Counters →
             </a>
           </motion.div>
 
@@ -76,26 +75,26 @@ export default function Hero() {
             initial={{ opacity: 0, y: -16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 glass rounded-full px-4 sm:px-5 py-2 text-xs sm:text-sm text-gold font-medium border border-gold/40 shadow-[0_0_20px_rgba(255,211,106,0.2)] mb-4"
+            className="inline-flex items-center gap-1.5 sm:gap-2 glass rounded-full px-3.5 sm:px-5 py-1.5 sm:py-2 text-[10px] sm:text-sm text-gold font-medium border border-gold/40 shadow-[0_0_20px_rgba(255,211,106,0.2)] mb-3 sm:mb-4 max-w-full"
           >
-            <Sparkles size={14} className="text-pink animate-pulse" />
-            <span className="tracking-widest uppercase font-serif text-[11px] sm:text-xs">
+            <Sparkles size={13} className="text-pink animate-pulse shrink-0" />
+            <span className="tracking-wider sm:tracking-widest uppercase font-serif text-[10px] sm:text-xs">
               ELITES GROUP PRESENTS
             </span>
             <span className="text-gold/40">•</span>
-            <span className="text-[#FFF8F0] hidden sm:inline">BEST DANDIYA NIGHT IN MOTIHARI</span>
+            <span className="text-[#FFF8F0] font-semibold text-[10px] sm:text-xs">DANDIYA NIGHT 2026</span>
           </motion.div>
 
           {/* Main Event Heading (H1 for SEO) */}
           <h1
-            className="w-full tracking-tight"
+            className="w-full tracking-tight max-w-full overflow-hidden"
             aria-label="Best Dandiya Night in Motihari — Elites Group Navratri Vibes with Dandiya Beats 2026"
           >
             <motion.span
               initial={{ opacity: 0, y: 30, filter: 'blur(8px)' }}
               animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               transition={{ delay: 0.2, duration: 0.8 }}
-              className="block font-display font-black gold-text text-4xl sm:text-6xl lg:text-7xl xl:text-8xl leading-[1.05] drop-shadow-[0_8px_30px_rgba(0,0,0,0.6)]"
+              className="block font-display font-black gold-text text-[1.95rem] xs:text-4xl sm:text-6xl lg:text-7xl xl:text-8xl leading-[1.08] drop-shadow-[0_8px_30px_rgba(0,0,0,0.6)]"
             >
               NAVRATRI VIBES
             </motion.span>
@@ -104,20 +103,20 @@ export default function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.45, duration: 0.6 }}
-              className="flex items-center justify-center lg:justify-start gap-4 my-2 sm:my-3"
+              className="flex items-center justify-center lg:justify-start gap-3 sm:gap-4 my-1.5 sm:my-3"
             >
-              <span className="h-px w-10 sm:w-16 bg-gradient-to-r from-transparent to-gold/70" />
-              <span className="font-serif text-[#FFD36A] text-xs sm:text-base tracking-[0.45em] uppercase font-bold">
+              <span className="h-px w-8 sm:w-16 bg-gradient-to-r from-transparent to-gold/70" />
+              <span className="font-serif text-[#FFD36A] text-xs sm:text-base tracking-[0.35em] sm:tracking-[0.45em] uppercase font-bold">
                 WITH
               </span>
-              <span className="h-px w-10 sm:w-16 bg-gradient-to-l from-transparent to-gold/70" />
+              <span className="h-px w-8 sm:w-16 bg-gradient-to-l from-transparent to-gold/70" />
             </motion.span>
 
             <motion.span
               initial={{ opacity: 0, y: 30, filter: 'blur(8px)' }}
               animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               transition={{ delay: 0.6, duration: 0.8 }}
-              className="block font-display font-black text-[#FFF8F0] text-3xl sm:text-5xl lg:text-6xl xl:text-7xl leading-[1.1] drop-shadow-[0_0_30px_rgba(255,79,154,0.5)]"
+              className="block font-display font-black text-[#FFF8F0] text-[1.65rem] xs:text-3xl sm:text-5xl lg:text-6xl xl:text-7xl leading-[1.12] drop-shadow-[0_0_30px_rgba(255,79,154,0.5)]"
             >
               DANDIYA BEATS <span className="gold-text">2026</span>
             </motion.span>
@@ -126,7 +125,7 @@ export default function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.7, duration: 0.6 }}
-              className="block mt-1 font-serif text-xs sm:text-sm text-gold/90 tracking-widest uppercase font-semibold"
+              className="block mt-2 font-serif text-[11px] sm:text-xs md:text-sm text-gold/90 tracking-wider uppercase font-semibold text-center lg:text-left"
             >
               Best Dandiya Night in Motihari • Elites Group
             </motion.span>
@@ -137,7 +136,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.75, duration: 0.6 }}
-            className="mt-4 text-[#D8CDE7] text-sm sm:text-base max-w-xl leading-relaxed"
+            className="mt-3 sm:mt-4 text-[#D8CDE7] text-xs sm:text-base max-w-xl leading-relaxed px-1 sm:px-0"
           >
             Immerse yourself in Motihari's grandest celebration of colourful Garba dance,
             electric Dandiya beats, traditional lehengas, and joyful festival lights!
@@ -148,16 +147,16 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9, duration: 0.6 }}
-            className="mt-6 flex flex-wrap gap-2.5 sm:gap-3 justify-center lg:justify-start w-full"
+            className="mt-5 sm:mt-6 flex flex-wrap gap-2 sm:gap-3 justify-center lg:justify-start w-full max-w-full"
           >
-            <div className="glass rounded-full px-4 py-2 flex items-center gap-2 text-xs sm:text-sm font-medium text-[#FFF8F0] border border-gold/30">
-              <CalendarDays size={16} className="text-gold shrink-0" aria-hidden="true" />
-              <span className="font-semibold text-gold">21 October 2026</span>
+            <div className="glass rounded-full px-3 py-1.5 sm:px-4 sm:py-2 flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-sm font-medium text-[#FFF8F0] border border-gold/30">
+              <CalendarDays size={14} className="text-gold shrink-0" aria-hidden="true" />
+              <span className="font-semibold text-gold">21 Oct 2026</span>
             </div>
 
-            <div className="glass rounded-full px-4 py-2 flex items-center gap-2 text-xs sm:text-sm font-medium text-[#FFF8F0] border border-gold/30">
-              <Clock size={16} className="text-pink shrink-0" aria-hidden="true" />
-              <span>Gate: 5:00 PM | Event: 6:00 PM onwards</span>
+            <div className="glass rounded-full px-3 py-1.5 sm:px-4 sm:py-2 flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-sm font-medium text-[#FFF8F0] border border-gold/30">
+              <Clock size={14} className="text-pink shrink-0" aria-hidden="true" />
+              <span>Gate: 5 PM | Event: 6 PM</span>
             </div>
 
             <a
@@ -165,10 +164,10 @@ export default function Hero() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackGoogleMapsClick('Hero Venue Link', MAP_LINK)}
-              className="glass rounded-full px-4 py-2 flex items-center gap-2 text-xs sm:text-sm font-medium text-[#D8CDE7] hover:text-gold border border-gold/25 hover:border-gold transition-colors"
+              className="glass rounded-full px-3 py-1.5 sm:px-4 sm:py-2 flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-sm font-medium text-[#D8CDE7] hover:text-gold border border-gold/25 hover:border-gold transition-colors max-w-full"
             >
-              <MapPin size={16} className="text-amber shrink-0 animate-pulse" aria-hidden="true" />
-              <span>{ADDRESS}</span>
+              <MapPin size={14} className="text-amber shrink-0 animate-pulse" aria-hidden="true" />
+              <span className="truncate max-w-[210px] sm:max-w-none">{ADDRESS}</span>
             </a>
           </motion.div>
 
